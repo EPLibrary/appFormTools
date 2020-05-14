@@ -732,6 +732,8 @@ function showError(el) {
 // Input validation for email fields
 function isEmailValid(el) {
 	var elid = $(el).attr('id');
+	// trim string to remove any spaces
+	$(el).val($(el).val().trim());
 	$('#ftEmailError'+elid).remove();
 	var emailRegex=new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 	if ( emailRegex.test($(el).val()) == false ) {
