@@ -15,8 +15,14 @@ Shows relevant errors.
 
 This is used by FormBuilder forms.
 
-Documentation:
---------------
+Dependencies
+------------
+- [jQuery](https://jquery.com/)
+- [jQueryUI](https://jqueryui.com/)
+- [moment.js](https://momentjs.com/)
+
+Documentation
+-------------
 
 Use forms from the apps formDesign template here
 https://apps.epl.ca/web/design/#pattern54
