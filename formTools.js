@@ -892,10 +892,8 @@ function applyValidation() {
  		maxDate = maxDateAttr;
  	}
 
- 	console.log(typeof minDate);
- 	console.log(typeof maxDate);
  	if (minDate!==null && maxDate!==null) {
- 		// Uncomment this if we want anything with min/max constraints to be read-only. I'll leave this to the developer, though.
+ 		// Uncomment this if we want anything with min/max constraints to be read-only.
  		// $(this).prop('readonly', true);
  	}
 
