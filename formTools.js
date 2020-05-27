@@ -874,14 +874,48 @@ function formToolsValidate(debug=false) {
 function applyValidation() {
 
 // Can use inputmask to restrict to valid date format
- $(".datepicker:not([readonly])").datepicker({
-  //yy: four-digit year, M: Three letter month, dd: day number with leading zero
-  dateFormat: "yy-M-dd",
-  changeYear: true,
-  changeMonth: true
-})//.inputmask("9999-aaa-9[9]");
+ $(".datepicker:not([readonly])").each(function(){
+ 	var dateFormat = $(this).attr('data-dateFormat');
+ 	// Default date format, four-digit year, three letter month, day number with leading zero
+ 	if (typeof dateFormat === "undefined") dateFormat="yy-M-dd";
 
-$(".datepicker").attr("placeholder", "YYYY-Mmm-D")
+ 	// Note: Changing date format isn't yet supported as I have to also change the
+ 	// datesanitize function and placeholder text to match.
+ 	var minDate=null;
+ 	var maxDate=null;
+ 	var minDateAttr = $(this).attr('data-minDate');
+ 	var maxDateAttr = $(this).attr('data-maxDate');
+ 	if (typeof minDateAttr !== "undefined") {
+ 		minDate = minDateAttr;
+ 	}
+ 	if (typeof maxDateAttr !== "undefined") {
+ 		maxDate = maxDateAttr;
+ 	}
+
+ 	console.log(typeof minDate);
+ 	console.log(typeof maxDate);
+ 	if (minDate!==null && maxDate!==null) {
+ 		// Uncomment this if we want anything with min/max constraints to be read-only. I'll leave this to the developer, though.
+ 		// $(this).prop('readonly', true);
+ 	}
+
+ 	/* If I have a min and max date, how do I prevent someone from entering
+ 	 Whatever date they want manually?
+ 	
+ 	- make it readonly is the easiest, force them to use the datepicker
+ 	- try to parse jQueryUI's min/maxDate strings and enforce that when I check the date validity.
+ 	*/
+
+ 	$(this).datepicker({
+	  dateFormat: dateFormat,
+	  changeYear: true,
+	  changeMonth: true,
+	  minDate: minDate,
+	  maxDate: maxDate
+	});
+});
+
+$(".datepicker").attr("placeholder", "YYYY-Mmm-D");
 
 // Input filtering for library card
 $('.formTools, .appForm').on("input", ".eplcard", function() {

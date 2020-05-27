@@ -6,7 +6,7 @@
 	<meta name="charset=utf-8" />
 
 	<!-- Moment.js is used for date and time handling -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.3/moment.min.js"></script>
+	<script src="https://www2.epl.ca/Javascript/moment.min.js"></script>
 
 	<!-- jQuery is required. In production we use something like 
 	<script src="/Javascript/jquery-3.5.1.min.js"></script> -->
@@ -21,9 +21,9 @@
 	<script src="formTools.js"></script>
 
 	<!-- Require apps.css for responsive form layout. It is available at https://raw.githubusercontent.com/EPLibrary/appsSCSS/master/apps.css -->
-	<link rel="stylesheet" type="text/css" href="/apps.css" />
+	<link rel="stylesheet" type="text/css" href="/CSS/apps.css" />
 	<!-- Optional additional stylesheet for dark mode support -->
-	<link rel="Stylesheet" type="text/css" href="/appsDark.css">
+	<link rel="Stylesheet" type="text/css" href="/CSS/appsDark.css">
 </head>
 
 <body id="appsBody">
@@ -33,11 +33,19 @@
 <!-- Demo form with all supported field types -->
 <form class="appForm formTools" method="post">
 
-	<label for="date1">Date<span class="required">*</span>
+	<label for="date1">Any Date<span class="required">*</span>
 		<input name="date1" id="date1" class="required datepicker" />
 		<div class="error hidden" id="date1Error">This is required</div>
+		<div class="tinyTip">No limits on date options. Can also manually type date and it will be reformatted.</div>		
+	</label>
+
+	<label for="date2">Date Range<span class="required">*</span>
+		<input name="date2" id="date2" class="required datepicker" data-minDate="0" data-maxDate="+1w" />
+		<div class="error hidden" id="date12rror">This is required</div>
+		<div class="tinyTip">Note that this is constrained to only allow selecting dates in the near future with the data-minDate and data-maxDate attributes that get passed into the datepicker call. <a href="https://api.jqueryui.com/datepicker/#option-maxDate">See jQueryUI Docs</a>.</div>		
 	</label>
 	
+
 	<label for="time1">Time of Day<span class="required">*</span>
 		<input name="time1" id="time1" class="required time" />
 		<div class="error hidden" id="date1Error">This is required</div>
