@@ -48,6 +48,11 @@ then run formToolsValidate() after your own validation.
 
 **To disable automatic validation, add the "noAutoValidation" class to your form element.**
 
+Datepicker options:
+use data-minDate and data-maxDate attributes to specify min a max dates for a datepicker field.
+You may specify an integer number of days from the current day, (0 is today), a date in the format used by the
+datepicker (YYYY-Mmm-DD), or a relative date (eg +1y-1w+1d for plus one year minus one week, plus 1 day). 
+
 ****************************************************************************/
 
 // General functions anyone can use
@@ -604,6 +609,72 @@ function timeSanitize(str, formatStr, id) {
 } //end timeSanitize()
 
 
+//Returns number of days in month (months are zero based, 0=Jan, 1=Feb)
+function getDaysInMonth(year, month) {
+	return 32 - ( new Date( year, month, 32 ) ).getDate();
+}
+
+// This is the code from jQueryUI that takes strings or dates and determines a relative date
+// Used in minDate and maxDate in datepickers
+function determineDate(date, defaultDate ) {
+
+	//First test that this is an actual date string. If so, return a date object matching it.
+	var cleanDate = dateSanitize(date);
+	if (cleanDate!="Invalid Date")
+		return new Date(cleanDate);
+
+
+	var offsetNumeric = function( offset ) {
+		var date = new Date();
+		date.setDate( date.getDate() + offset );
+		return date;
+	}
+
+
+	//I could run the string through datesanitize, right?
+	var	offsetString = function( offset ) {
+		var date = new Date(),
+			year = date.getFullYear(),
+			month = date.getMonth(),
+			day = date.getDate(),
+			pattern = /([+\-]?[0-9]+)\s*(d|D|w|W|m|M|y|Y)?/g,
+			matches = pattern.exec( offset );
+
+		while ( matches ) {
+			switch ( matches[ 2 ] || "d" ) {
+				case "d" : case "D" :
+					day += parseInt( matches[ 1 ], 10 ); break;
+				case "w" : case "W" :
+					day += parseInt( matches[ 1 ], 10 ) * 7; break;
+				case "m" : case "M" :
+					month += parseInt( matches[ 1 ], 10 );
+					day = Math.min( day, getDaysInMonth( year, month ) );
+					break;
+				case "y": case "Y" :
+					year += parseInt( matches[ 1 ], 10 );
+					day = Math.min( day, getDaysInMonth( year, month ) );
+					break;
+			}
+			matches = pattern.exec( offset );
+		}
+		return new Date( year, month, day );
+	}
+
+	var newDate = ( date == null || date === "" ? defaultDate : ( typeof date === "string" ? offsetString( date ) :
+			( typeof date === "number" ? ( isNaN( date ) ? defaultDate : offsetNumeric( date ) ) : new Date( date.getTime() ) ) ) );
+
+	newDate = ( newDate && newDate.toString() === "Invalid Date" ? defaultDate : newDate );
+	if ( newDate ) {
+		newDate.setHours( 0 );
+		newDate.setMinutes( 0 );
+		newDate.setSeconds( 0 );
+		newDate.setMilliseconds( 0 );
+	}
+	//Removed DSTadjust, probably not too necessary
+	return newDate;
+}
+
+
 
 // Converts an integer or combination of letters into a full month name. Use true for second paramter to get 3 letter month.
 function monthToString(str, short) {
@@ -672,6 +743,32 @@ function isDateValid(el) {
 		return false;
 	} else {
 		$(el).val(valClean);
+
+		//If there's a minDate or maxDate attribute, check that date is in bounds
+		if ( $(el).attr('data-minDate')||$(el).attr('data-maxDate') ) {
+			var m = moment(dateSanitize(val));
+
+			//Now check that date is in allowed range
+			if ($(el).attr('data-minDate')) {
+				var minDate = determineDate($(el).attr('data-minDate'));
+				var minDateFormatted = moment(minDate).format('YYYY-MMM-DD');
+				if (m.isBefore(minDate)) {
+					$(el).after('<div id="ftDateError'+elid+'" class="error ftError ftDateError">Date must be on or after '+minDateFormatted+'.</div>');
+					return false;
+				}
+			}
+
+			if ($(el).attr('data-maxDate')) {
+				var maxDate = determineDate($(el).attr('data-maxDate'));
+				var maxDateFormatted = moment(maxDate).format('YYYY-MMM-DD');
+				if (m.isAfter(maxDate)) {
+					$(el).after('<div id="ftDateError'+elid+'" class="error ftError ftDateError">Date must be on or before '+maxDateFormatted+'.</div>');
+					return false;
+				}
+			}			
+
+		}//if min or max
+
 		// $(el).trigger('change');
 		return true;
 	}
