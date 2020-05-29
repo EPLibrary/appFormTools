@@ -45,6 +45,11 @@
 		<div class="tinyTip">Note that this is constrained to only allow selecting dates in the near future with the data-minDate and data-maxDate attributes that get passed into the datepicker call. <a href="https://api.jqueryui.com/datepicker/#option-maxDate">See jQueryUI Docs</a>.</div>		
 	</label>
 	
+	<label for="date3">No Weekends<span class="required">*</span>
+		<input name="date3" id="date3" class="required datepicker" data-noWeekends="true" />
+		<div class="error hidden" id="date3Error">This is required</div>
+		<div class="tinyTip">Weekends cannot be selected.</div>		
+	</label>
 
 	<label for="time1">Time of Day<span class="required">*</span>
 		<input name="time1" id="time1" class="required time" />

@@ -744,30 +744,33 @@ function isDateValid(el) {
 	} else {
 		$(el).val(valClean);
 
-		//If there's a minDate or maxDate attribute, check that date is in bounds
-		if ( $(el).attr('data-minDate')||$(el).attr('data-maxDate') ) {
-			var m = moment(dateSanitize(val));
-
-			//Now check that date is in allowed range
-			if ($(el).attr('data-minDate')) {
-				var minDate = determineDate($(el).attr('data-minDate'));
-				var minDateFormatted = moment(minDate).format('YYYY-MMM-DD');
-				if (m.isBefore(minDate)) {
-					$(el).after('<div id="ftDateError'+elid+'" class="error ftError ftDateError">Date must be on or after '+minDateFormatted+'.</div>');
-					return false;
-				}
+		// m is used to check certain constraints
+		var m = moment(dateSanitize(val));
+		//Now check that date is in allowed range
+		if ($(el).attr('data-minDate')) {
+			var minDate = determineDate($(el).attr('data-minDate'));
+			var minDateFormatted = moment(minDate).format('YYYY-MMM-DD');
+			if (m.isBefore(minDate)) {
+				$(el).after('<div id="ftDateError'+elid+'" class="error ftError ftDateError">Date must be on or after '+minDateFormatted+'.</div>');
+				return false;
 			}
+		}
 
-			if ($(el).attr('data-maxDate')) {
-				var maxDate = determineDate($(el).attr('data-maxDate'));
-				var maxDateFormatted = moment(maxDate).format('YYYY-MMM-DD');
-				if (m.isAfter(maxDate)) {
-					$(el).after('<div id="ftDateError'+elid+'" class="error ftError ftDateError">Date must be on or before '+maxDateFormatted+'.</div>');
-					return false;
-				}
-			}			
+		if ($(el).attr('data-maxDate')) {
+			var maxDate = determineDate($(el).attr('data-maxDate'));
+			var maxDateFormatted = moment(maxDate).format('YYYY-MMM-DD');
+			if (m.isAfter(maxDate)) {
+				$(el).after('<div id="ftDateError'+elid+'" class="error ftError ftDateError">Date must be on or before '+maxDateFormatted+'.</div>');
+				return false;
+			}
+		}
 
-		}//if min or max
+		if ($(el).attr('data-noWeekends')) {
+			if(m.isoWeekday() == 6 || m.isoWeekday() == 0) {
+				$(el).after('<div id="ftDateError'+elid+'" class="error ftError ftDateError">Date must be a weekday.</div>');
+			}
+		}
+
 
 		// $(el).trigger('change');
 		return true;
@@ -973,41 +976,33 @@ function applyValidation() {
 // Can use inputmask to restrict to valid date format
  $(".datepicker:not([readonly])").each(function(){
  	var dateFormat = $(this).attr('data-dateFormat');
- 	// Default date format, four-digit year, three letter month, day number with leading zero
- 	if (typeof dateFormat === "undefined") dateFormat="yy-M-dd";
+ 	// Options for jQueryUI datepicker
+ 	var dpOptions = new Object;
 
+ 	// Allow changing year and month with dropdowns
+ 	dpOptions.changeYear = true;
+ 	dpOptions.changeMonth = true;
+
+ 	// Default date format, four-digit year, three letter month, day number with leading zero
  	// Note: Changing date format isn't yet supported as I have to also change the
  	// datesanitize function and placeholder text to match.
- 	var minDate=null;
- 	var maxDate=null;
- 	var minDateAttr = $(this).attr('data-minDate');
- 	var maxDateAttr = $(this).attr('data-maxDate');
- 	if (typeof minDateAttr !== "undefined") {
- 		minDate = minDateAttr;
- 	}
- 	if (typeof maxDateAttr !== "undefined") {
- 		maxDate = maxDateAttr;
- 	}
+ 	if (typeof dateFormat === "undefined") dateFormat="yy-M-dd";
+ 	dpOptions.dateFormat = dateFormat;
 
- 	if (minDate!==null && maxDate!==null) {
- 		// Uncomment this if we want anything with min/max constraints to be read-only.
- 		// $(this).prop('readonly', true);
+ 	if (typeof $(this).attr('data-minDate') !== "undefined") {
+ 		dpOptions.minDate = $(this).attr('data-minDate');
+ 	}
+ 	if (typeof $(this).attr('data-maxDate') !== "undefined") {
+ 		dpOptions.maxDate = $(this).attr('data-maxDate');
  	}
 
- 	/* If I have a min and max date, how do I prevent someone from entering
- 	 Whatever date they want manually?
- 	
- 	- make it readonly is the easiest, force them to use the datepicker
- 	- try to parse jQueryUI's min/maxDate strings and enforce that when I check the date validity.
- 	*/
+ 	// Check if the data-noWeekends atttribute is set
+ 	if (typeof $(this).attr('data-noWeekends') !== "undefined"
+ 		&& $(this).attr('data-noWeekends') != false) {
+ 		dpOptions.beforeShowDay=$.datepicker.noWeekends;
+ 	}
 
- 	$(this).datepicker({
-	  dateFormat: dateFormat,
-	  changeYear: true,
-	  changeMonth: true,
-	  minDate: minDate,
-	  maxDate: maxDate
-	});
+ 	$(this).datepicker(dpOptions);
 });
 
 $(".datepicker").attr("placeholder", "YYYY-Mmm-D");
