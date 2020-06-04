@@ -885,7 +885,9 @@ function isPostalValid(el) {
 
 
 /* The main validation function for everything FormTools does. This is called by a form submission */
-function formToolsValidate(debug=false) {
+function formToolsValidate(debug) {
+	// Necessary to fix bug in IE11
+	if (typeof debug === "undefined") debug=false;
 	var valid = true;
 
 	// Hide any existing errors
