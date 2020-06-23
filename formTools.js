@@ -1051,13 +1051,21 @@ function applyValidation() {
 			this.value=this.value.replace(/[^\d]/, "");
 	});
 
+	// Input filtering for bit (one character 0 or 1)
+	$('.formTools, .appForm').on("input", ".bit", function() {
+		//Removes non-numeric characters from input
+		this.value=this.value.replace(/^.*(0|1)$/, '$1');
+		if (this.value!="0" && this.value!="1" && this.value!="") {
+			this.value="";
+		}
+	});
+
 	// Input filtering for decimal fields
 	$('.formTools, .appForm').on("input", ".decimal", function() {
 		//Removes non-numeric characters from input
 		// This is mostly to handle copy-pasted values
 		if (this.value.search(/[^\d\.]/) != -1) {
 			this.value=this.value.replace(/[^\d\.]/g, "");
-			//this.value = this.value.replace(/[^\d\.,]/g, "");
 		}
 
 		//Remove any periods after the first one
