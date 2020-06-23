@@ -765,7 +765,7 @@ function isDateValid(el) {
 			}
 		}
 
-		if ($(el).attr('data-noWeekends') && $(el).attr('data-noWeekends') != "false") {
+		if (typeof $(el).attr('data-noWeekends') !== "undefined" && $(el).attr('data-noWeekends') != "false") {
 			if(m.isoWeekday() == 6 || m.isoWeekday() == 0) {
 				$(el).after('<div id="ftDateError'+elid+'" class="error ftError ftDateError">Date must be a weekday.</div>');
 			}
@@ -1000,7 +1000,7 @@ function applyValidation() {
 
 	 	// Check if the data-noWeekends atttribute is set
 	 	if (typeof $(this).attr('data-noWeekends') !== "undefined"
-	 		&& $(this).attr('data-noWeekends') != false) {
+	 		&& $(this).attr('data-noWeekends') != "false") {
 	 		dpOptions.beforeShowDay=$.datepicker.noWeekends;
 	 	}
 
