@@ -765,7 +765,7 @@ function isDateValid(el) {
 			}
 		}
 
-		if ($(el).attr('data-noWeekends')) {
+		if ($(el).attr('data-noWeekends') && $(el).attr('data-noWeekends') != "false") {
 			if(m.isoWeekday() == 6 || m.isoWeekday() == 0) {
 				$(el).after('<div id="ftDateError'+elid+'" class="error ftError ftDateError">Date must be a weekday.</div>');
 			}
@@ -975,152 +975,149 @@ function formToolsValidate(debug) {
 // This function can be used to refresh form validation listeners if content is reloaded via AJAX
 function applyValidation() {
 
-// Can use inputmask to restrict to valid date format
- $(".datepicker:not([readonly])").each(function(){
- 	var dateFormat = $(this).attr('data-dateFormat');
- 	// Options for jQueryUI datepicker
- 	var dpOptions = new Object;
+	// Can use inputmask to restrict to valid date format
+	$(".datepicker:not([readonly])").each(function(){
+	 	var dateFormat = $(this).attr('data-dateFormat');
+	 	// Options for jQueryUI datepicker
+	 	var dpOptions = new Object;
 
- 	// Allow changing year and month with dropdowns
- 	dpOptions.changeYear = true;
- 	dpOptions.changeMonth = true;
+	 	// Allow changing year and month with dropdowns
+	 	dpOptions.changeYear = true;
+	 	dpOptions.changeMonth = true;
 
- 	// Default date format, four-digit year, three letter month, day number with leading zero
- 	// Note: Changing date format isn't yet supported as I have to also change the
- 	// datesanitize function and placeholder text to match.
- 	if (typeof dateFormat === "undefined") dateFormat="yy-M-dd";
- 	dpOptions.dateFormat = dateFormat;
+	 	// Default date format, four-digit year, three letter month, day number with leading zero
+	 	// Note: Changing date format isn't yet supported as I have to also change the
+	 	// datesanitize function and placeholder text to match.
+	 	if (typeof dateFormat === "undefined") dateFormat="yy-M-dd";
+	 	dpOptions.dateFormat = dateFormat;
 
- 	if (typeof $(this).attr('data-minDate') !== "undefined") {
- 		dpOptions.minDate = $(this).attr('data-minDate');
- 	}
- 	if (typeof $(this).attr('data-maxDate') !== "undefined") {
- 		dpOptions.maxDate = $(this).attr('data-maxDate');
- 	}
+	 	if (typeof $(this).attr('data-minDate') !== "undefined") {
+	 		dpOptions.minDate = $(this).attr('data-minDate');
+	 	}
+	 	if (typeof $(this).attr('data-maxDate') !== "undefined") {
+	 		dpOptions.maxDate = $(this).attr('data-maxDate');
+	 	}
 
- 	// Check if the data-noWeekends atttribute is set
- 	if (typeof $(this).attr('data-noWeekends') !== "undefined"
- 		&& $(this).attr('data-noWeekends') != false) {
- 		dpOptions.beforeShowDay=$.datepicker.noWeekends;
- 	}
+	 	// Check if the data-noWeekends atttribute is set
+	 	if (typeof $(this).attr('data-noWeekends') !== "undefined"
+	 		&& $(this).attr('data-noWeekends') != false) {
+	 		dpOptions.beforeShowDay=$.datepicker.noWeekends;
+	 	}
 
- 	$(this).datepicker(dpOptions);
-});
+	 	$(this).datepicker(dpOptions);
+	});
 
-$(".datepicker").attr("placeholder", "YYYY-Mmm-D");
+	$(".datepicker").attr("placeholder", "YYYY-Mmm-D");
 
-// Input filtering for library card
-$('.formTools, .appForm').on("input", ".eplcard", function() {
-	//Removes non-numeric characters from input
-	if (this.value.search(/[^\d ]/) != -1)
-		this.value=this.value.replace(/[^\d ]/, "");
-});
-
-
-$('.formTools, .appForm').on("change", ".eplcard", function() {
-	isCardValid(this);
-});
-
-$('.formTools, .appForm').on("input", ".eplcard", function() {
-	var elid = $(this).attr('id');
-	if ($('#ftCardError'+elid).length) isCardValid(this);
-});
+	// Input filtering for library card
+	$('.formTools, .appForm').on("input", ".eplcard", function() {
+		//Removes non-numeric characters from input
+		if (this.value.search(/[^\d ]/) != -1)
+			this.value=this.value.replace(/[^\d ]/, "");
+	});
 
 
+	$('.formTools, .appForm').on("change", ".eplcard", function() {
+		isCardValid(this);
+	});
 
-$('.formTools, .appForm').on("change", ".datepicker", function() {
-	isDateValid(this);
-});
+	$('.formTools, .appForm').on("input", ".eplcard", function() {
+		var elid = $(this).attr('id');
+		if ($('#ftCardError'+elid).length) isCardValid(this);
+	});
 
-$('.formTools, .appForm').on("input", ".datepicker", function() {
-	var elid = $(this).attr('id');
-	if ($('#ftDateError'+elid).length)
+
+
+	$('.formTools, .appForm').on("change", ".datepicker", function() {
 		isDateValid(this);
-});
+	});
+
+	$('.formTools, .appForm').on("input", ".datepicker", function() {
+		var elid = $(this).attr('id');
+		if ($('#ftDateError'+elid).length)
+			isDateValid(this);
+	});
 
 
-$('.formTools, .appForm').on("change", ".time", function() {
-	isTimeValid(this);
-});
+	$('.formTools, .appForm').on("change", ".time", function() {
+		isTimeValid(this);
+	});
 
 
-// Input filtering for integer fields
-$('.formTools, .appForm').on("input", ".integer", function() {
-	//Removes non-numeric characters from input
-	if (this.value.search(/[^\d]/) != -1)
-		this.value=this.value.replace(/[^\d]/, "");
-});
+	// Input filtering for integer fields
+	$('.formTools, .appForm').on("input", ".integer", function() {
+		//Removes non-numeric characters from input
+		if (this.value.search(/[^\d]/) != -1)
+			this.value=this.value.replace(/[^\d]/, "");
+	});
 
-// Input filtering for decimal fields
-$('.formTools, .appForm').on("input", ".decimal", function() {
-	//Removes non-numeric characters from input
-	// This is mostly to handle copy-pasted values
-	if (this.value.search(/[^\d\.]/) != -1) {
-		this.value=this.value.replace(/[^\d\.]/g, "");
-		//this.value = this.value.replace(/[^\d\.,]/g, "");
-	}
+	// Input filtering for decimal fields
+	$('.formTools, .appForm').on("input", ".decimal", function() {
+		//Removes non-numeric characters from input
+		// This is mostly to handle copy-pasted values
+		if (this.value.search(/[^\d\.]/) != -1) {
+			this.value=this.value.replace(/[^\d\.]/g, "");
+			//this.value = this.value.replace(/[^\d\.,]/g, "");
+		}
 
-	//Remove any periods after the first one
-	if (this.value.search(/.*\..*\./) != -1);
-		this.value=this.value.replace(/(.*\..*)(\.)/, "$1");	
-});
-
-
-$('.formTools, .appForm').on("change", ".email", function() {
-	isEmailValid(this);
-});
-
-$('.formTools, .appForm').on("input", ".email", function() {
-	var elid = $(this).attr('id');
-	if ($('#ftEmailError'+elid).length) isEmailValid(this);
-});
-
-// Input filtering for phone fields
-$('.formTools, .appForm').on("input", ".phone,.telephone", function() {
-	//Removes non-numeric characters from input
-	if (this.value.search(/[^\d\.\-\(\)+ ]/) != -1)
-		this.value=this.value.replace(/[^\d\.\-\(\)+ ]/, "");
-});
+		//Remove any periods after the first one
+		if (this.value.search(/.*\..*\./) != -1);
+			this.value=this.value.replace(/(.*\..*)(\.)/, "$1");	
+	});
 
 
-$('.formTools, .appForm').on("change", ".phone,.telephone", function() {
-	isPhoneValid(this);
-});
+	$('.formTools, .appForm').on("change", ".email", function() {
+		isEmailValid(this);
+	});
 
-$('.formTools, .appForm').on("input", ".phone,.telephone", function() {
-	var elid = $(this).attr('id');
-	if ($('#ftPhoneError'+elid).length) isPhoneValid(this);
-});
+	$('.formTools, .appForm').on("input", ".email", function() {
+		var elid = $(this).attr('id');
+		if ($('#ftEmailError'+elid).length) isEmailValid(this);
+	});
 
-
-
-$('.formTools, .appForm').on("change", ".decimal", function() {
-	isDecimalValid(this);
-});
-
-$('.formTools, .appForm').on("input", ".decimal", function() {
-	var elid = $(this).attr('id');
-	if ($('#ftDecimalError'+elid).length) isDecimalValid(this);
-});
+	// Input filtering for phone fields
+	$('.formTools, .appForm').on("input", ".phone,.telephone", function() {
+		//Removes non-numeric characters from input
+		if (this.value.search(/[^\d\.\-\(\)+ ]/) != -1)
+			this.value=this.value.replace(/[^\d\.\-\(\)+ ]/, "");
+	});
 
 
-$('.formTools, .appForm').on("change", ".postal", function() {
-	isPostalValid(this);
-});
+	$('.formTools, .appForm').on("change", ".phone,.telephone", function() {
+		isPhoneValid(this);
+	});
 
-$('.formTools, .appForm').on("input", ".postal", function() {
-	var elid = $(this).attr('id');
-	if ($('#ftPostalError'+elid).length) isPostalValid(this);
-});
+	$('.formTools, .appForm').on("input", ".phone,.telephone", function() {
+		var elid = $(this).attr('id');
+		if ($('#ftPhoneError'+elid).length) isPhoneValid(this);
+	});
 
 
-// Validate entire submission when the submit button is clicked
-//   unless the NoAutoValidation class is set.
-$('.formTools:not(.noAutoValidation), .appForm:not(.noAutoValidation)').on('submit', function(){
+	$('.formTools, .appForm').on("change", ".decimal", function() {
+		isDecimalValid(this);
+	});
 
-	return formToolsValidate();
-	
-});//end on submit
+	$('.formTools, .appForm').on("input", ".decimal", function() {
+		var elid = $(this).attr('id');
+		if ($('#ftDecimalError'+elid).length) isDecimalValid(this);
+	});
+
+
+	$('.formTools, .appForm').on("change", ".postal", function() {
+		isPostalValid(this);
+	});
+
+	$('.formTools, .appForm').on("input", ".postal", function() {
+		var elid = $(this).attr('id');
+		if ($('#ftPostalError'+elid).length) isPostalValid(this);
+	});
+
+
+	// Validate entire submission when the submit button is clicked
+	//   unless the NoAutoValidation class is set.
+	$('.formTools:not(.noAutoValidation), .appForm:not(.noAutoValidation)').on('submit', function(){
+		return formToolsValidate();
+	});//end on submit
 
 }//end applyValidation();
 
