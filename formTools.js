@@ -104,7 +104,7 @@ function isLeapYear(year) {
 */
 function dateSanitize(str, formatStr, id) {
 	var invalidMsg = "Invalid Date";
-
+	if (typeof formatStr === "undefined") var formatStr="YYYY-MMM-DD";
 	str = str.trim();
 
 	// Handle a few specific strings. Even include spanish for Victor
