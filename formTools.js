@@ -1064,8 +1064,8 @@ function applyValidation() {
 	$('.formTools, .appForm').on("input", ".decimal", function() {
 		//Removes non-numeric characters from input
 		// This is mostly to handle copy-pasted values
-		if (this.value.search(/[^\d\.]/) != -1) {
-			this.value=this.value.replace(/[^\d\.]/g, "");
+		if (this.value.search(/[^\-\d\.]/) != -1) {
+			this.value=this.value.replace(/[^\-\d\.]/g, "");
 		}
 
 		//Remove any periods after the first one
