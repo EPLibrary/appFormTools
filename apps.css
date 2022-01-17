@@ -1,0 +1,3232 @@
+/* Base styles to style plain elements on apps. Generally, we want elements with no classes or IDs here */
+/* Primary CSS For apps.epl.ca */
+:root {
+  --accent-color: #004B8D;
+  --accent-color-hover: #005fb2;
+  --accent-color-active: #006ccc;
+}
+
+/* WebFonts for browsers that support them */
+@font-face {
+  font-family: "HelveticaNeueLTStd";
+  src: url("/Fonts/HelveticaNeueLTStd/HelveticaNeueLTStd.eot");
+  src: url("/Fonts/HelveticaNeueLTStd/HelveticaNeueLTStd.eot?#iefix") format("embedded-opentype"), url("/Fonts/HelveticaNeueLTStd/HelveticaNeueLTStd.woff") format("woff"), url("/Fonts/HelveticaNeueLTStd/HelveticaNeueLTStd.ttf") format("truetype"), url("/Fonts/HelveticaNeueLTStd/HelveticaNeueLTStd.svg#HelveticaNeueLTStd-Roman") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "EPLveticaUltralight";
+  src: url("/Fonts/EPLveticaUltralight/EPLveticaUltralight.eot");
+  src: url("/Fonts/EPLveticaUltralight/EPLveticaUltralight.eot?#iefix") format("embedded-opentype"), url("/Fonts/EPLveticaUltralight/EPLveticaUltralight.woff") format("woff"), url("/Fonts/EPLveticaUltralight/EPLveticaUltralight.ttf") format("truetype"), url("/Fonts/EPLveticaUltralight/EPLveticaUltralight.svg#HelveticaNeueLTStd-Th") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "EPLveticaLight";
+  src: url("/Fonts/EPLveticaLight/EPLveticaLight.eot");
+  src: url("/Fonts/EPLveticaLight/EPLveticaLight.eot?#iefix") format("embedded-opentype"), url("/Fonts/EPLveticaLight/EPLveticaLight.woff") format("woff"), url("/Fonts/EPLveticaLight/EPLveticaLight.ttf") format("truetype"), url("/Fonts/EPLveticaLight/EPLveticaLight.svg#HelveticaNeueLTStd-Lt") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "EPLveticaBold";
+  src: url("/Fonts/EPLveticaBold/EPLveticaBold.eot");
+  src: url("/Fonts/EPLveticaBold/EPLveticaBold.eot?#iefix") format("embedded-opentype"), url("/Fonts/EPLveticaBold/EPLveticaBold.woff") format("woff"), url("/Fonts/EPLveticaBold/EPLveticaBold.ttf") format("truetype"), url("/Fonts/EPLveticaBold/EPLveticaBold.svg#HelveticaNeueLTStd-Bd") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+/* apply a natural box layout model to all elements */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/** Base Rules
+	These are the defaults for elements. No class or ID selectors.
+******************************************************************/
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  margin: 0;
+  padding: 0;
+  color: #111111;
+}
+
+/* Supporting the appsThemeDark class here should speed up switching styles */
+body.appsThemeDark {
+  background-color: #111111;
+  color: white;
+}
+
+a {
+  color: #004B8D;
+  text-decoration: none;
+}
+
+h1 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  margin-top: 25px;
+  margin-bottom: 5px;
+}
+
+/* Adjacent sibling selector - H3s right after H2s don't have top margin */
+h1 + h2 {
+  margin-top: 0px;
+}
+
+h3 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+h2 + h3 {
+  margin-top: 0px;
+}
+
+h3 + h4 {
+  margin-top: 0px;
+}
+
+h3 + ul {
+  margin-top: 0px;
+}
+
+h4 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+h4 + ul {
+  margin-top: 0px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Kill blue borders in IE like it's 1993 */
+img {
+  border: none;
+}
+
+input[type=text], input[type=password], input:not([type]) {
+  line-height: 20px;
+}
+
+input, textarea {
+  font-size: 14px;
+  border-width: 1px;
+  border-radius: 2px;
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20400%20400%22%3E%3Cpolygon%20fill%3D%22%23888%22%20points%3D%22200%2C380%2010%2C60%20390%2C60%22%20%2F%3E%3C%2Fsvg%3E");
+  background-size: 7px 7px;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 5px) 50%;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 4px 6px;
+  padding-right: 19px;
+  border-width: 1px;
+  border-radius: 2px;
+}
+
+.chosen-container-single .chosen-single {
+  border-radius: 2px;
+}
+
+/***************************************************************/
+/* Styles relevant to elements of the Header (IntraHeader.cfm) */
+/***************************************************************/
+body {
+  background: #ffffff;
+  /* the background color will be displayed for the length of the content in the column, but no further */
+  margin-left: 0px;
+  /* the auto margins (in conjunction with a width) center the page */
+  margin-right: 0px;
+  /* the auto margins (in conjunction with a width) center the page */
+  margin-top: 0px;
+  margin-bottom: 0px;
+  /*border: 1px solid #000000;*/
+  text-align: left;
+  /* this overrides the text-align: center on the body element. */
+}
+
+header {
+  background-color: black;
+  padding: 0;
+}
+
+main {
+  /*Workaround for IE*/
+  display: block;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+nav {
+  background-color: #292929;
+}
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+nav li {
+  position: relative;
+}
+nav li ul {
+  background-color: #292929;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding: 3px;
+  padding-bottom: 0px;
+  width: 100%;
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  display: none;
+  left: 0;
+}
+nav li ul li a {
+  margin-left: 2px;
+  margin-right: 2px;
+  width: 100%;
+  width: calc(100% - 4px);
+}
+nav li:hover > ul, nav li ul:hover {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+  z-index: 500;
+  box-shadow: 0 3px 3px 0px rgba(0, 0, 0, 0.5);
+}
+nav a {
+  display: inline-block;
+  margin: 4px;
+}
+nav a:hover:not(.grayButton) {
+  background-color: #777;
+  text-decoration: none;
+}
+nav a:not(.grayButton) {
+  color: white;
+  background-color: #666;
+  padding: 1px 3px;
+  border-radius: 3px;
+  border: 1px solid #777;
+  border-bottom-color: #444;
+  border-right-color: #444;
+}
+
+#appsBody .devWarn {
+  padding: 3px;
+  margin: 0;
+}
+#appsBody .devWarn a {
+  color: inherit;
+}
+
+/* Used for the header present on almost all apps pages (ones using appsHeader.cfm) */
+#innerHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#headerLeftSection {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#headerLeftSection a + a {
+  margin-left: 15px;
+}
+#headerLeftSection #yourImage {
+  margin-left: 3px;
+}
+#headerLeftSection #headerUsername {
+  margin-left: 8px;
+  color: white;
+}
+
+/* Style for Sidebar Hamburger Button */
+#sidebarButton {
+  width: 40px;
+  display: none;
+  /* Make the Buns/patty of the hamburger */
+}
+#sidebarButton div {
+  background-color: white;
+  height: 6px;
+  width: 40px;
+  margin: 4px 0 5px 0;
+  font-size: 6px;
+  color: black;
+  text-align: center;
+}
+
+#yourImage {
+  width: 32px;
+  height: 32px;
+  margin-left: 4px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 32px;
+  border: 1px solid white;
+}
+
+#headerEPLLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#headerEPLLogo a + a {
+  margin-left: 20px;
+}
+
+.appsTitle {
+  margin-top: 3px;
+  font-size: 21px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.appsTitle:hover {
+  text-decoration: none;
+}
+
+#searchArea {
+  color: white;
+  font-weight: bold;
+  padding-right: 5px;
+}
+#searchArea div {
+  width: auto;
+  overflow: hidden;
+}
+#searchArea input {
+  margin: 1px 2px 3px 2px;
+  min-width: 300px;
+}
+
+.darkModeSwitch {
+  padding-top: 3px;
+}
+.darkModeSwitch img {
+  width: 23px;
+  height: 23px;
+  margin-top: 0;
+}
+
+/* Links to parent pages in the header */
+.breadCrumbs {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+/* Style for the Quick Search */
+.autocomplete-suggestions {
+  background: #FFF;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  text-align: left;
+  overflow: scroll;
+  box-shadow: 0 3px 6px 2px rgba(0, 0, 0, 0.5);
+}
+
+.autocomplete-suggestions div {
+  padding: 5px 0;
+  line-height: 15px;
+  padding-left: 3px;
+}
+
+.autocomplete-selected {
+  background-color: #3875d7;
+  background-image: linear-gradient(#3875d7 20%, #2a62bc 90%);
+  color: white;
+}
+
+.autocomplete-suggestion {
+  cursor: pointer;
+}
+
+.autocomplete-suggestion strong {
+  font-weight: normal;
+  background-color: rgba(255, 255, 127, 0.5);
+}
+
+.autocomplete-selected strong {
+  font-weight: normal;
+  background-color: #545477;
+}
+
+.resultCategory {
+  font-weight: bold;
+  background: linear-gradient(to bottom, rgba(128, 128, 128, 0.7) 0%, rgba(128, 128, 128, 0.4) 24%, transparent 100%);
+  padding-top: 8px;
+  text-align: center;
+  padding-bottom: 3px;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #000000;
+  height: 50px;
+  margin-top: 40px;
+  text-align: center;
+  position: relative;
+  /* footer */
+}
+footer .darkModeSwitch img {
+  margin-top: -2px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+footer a {
+  color: #b4b4b4;
+}
+footer a .fas, footer a .fa {
+  color: white;
+}
+footer a + a {
+  margin-left: 30px;
+}
+footer #footerHomeLink {
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+  text-align: right;
+}
+footer #footerHomeLink img {
+  height: 32px;
+}
+
+#sidebar {
+  display: none;
+  background-color: #EEE;
+  position: absolute;
+  width: 280px;
+  box-shadow: 0 3px 6px 2px rgba(0, 0, 0, 0.5);
+  z-index: 500;
+}
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#sidebar ul ul {
+  margin-left: 1em;
+  margin-bottom: 0.5em;
+}
+
+.sidebarCell {
+  padding: 6px 7px 8px 7px;
+}
+.sidebarCell a {
+  font-size: 15px;
+  text-decoration: none;
+  font-weight: normal;
+  color: inherit;
+  display: block;
+}
+
+/* Sidebar Section Headings */
+.sidebarHeading {
+  font-weight: bold;
+  background: #004B8D;
+  color: white;
+  font-size: 18px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.sidebarHeading .tinytip {
+  margin-top: 3px;
+  margin-left: 15px;
+  float: right;
+}
+
+#sidebarPeopleFind select {
+  width: 100%;
+  margin-bottom: 15px;
+}
+#sidebarPeopleFind label[for=sidebarSearch] {
+  display: flex;
+  flex-wrap: wrap;
+}
+#sidebarPeopleFind #sidebarSearch {
+  flex: 1;
+}
+#sidebarPeopleFind .button {
+  margin-left: 6px;
+}
+
+#appsTitleSmallWidth {
+  display: none;
+  text-align: center;
+}
+
+/* Title for Applications if PageTitle is set */
+.titleBar {
+  background-color: #004B8D;
+  padding: 5px;
+  margin-top: 6px;
+  margin-bottom: 5px;
+  color: white;
+  font-weight: normal;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.titleBar h1 {
+  display: inline;
+  font-size: 26px;
+  margin: 0 3px;
+}
+
+/* Buttons that go on titleBar */
+.adminControl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.adminControl a {
+  margin: 3px;
+  display: inline-block;
+  text-align: center;
+}
+
+#titleBar .adminControl a {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+@media (max-width: 950px) {
+  #headerUsername {
+    display: none;
+  }
+}
+@media (max-width: 800px) {
+  #headerEPLLogo img {
+    display: none;
+  }
+
+  .appsTitle {
+    margin-bottom: 4px;
+  }
+}
+@media (max-width: 700px) {
+  #headerLeftSection #yourImage {
+    margin-left: 15px;
+  }
+
+  #sidebarButton {
+    display: block;
+    margin-left: 3px;
+  }
+
+  #headerEPLLogo {
+    display: none;
+  }
+
+  #appsTitleSmallWidth {
+    display: block;
+    margin: auto;
+  }
+
+  #searchArea {
+    padding-left: 3px;
+    width: 100%;
+    flex-basis: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-right: 3px;
+  }
+
+  #searchArea input {
+    flex: 1;
+    margin-left: 5px;
+    min-width: 100px;
+  }
+
+  .autocomplete-suggestions div {
+    line-height: 26px;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .extText {
+    display: none;
+  }
+
+  /* Keep phones from zooming into input fields. 736 handles an iPhone 6 Plus in landscape or
+  smaller. IMO, 16px is a little too large and it's goofy if you change a window size and the
+  fonts get bigger. I can't yet think of a better way to do this, other than disallowing zoom,
+  which is a usability concern.
+  */
+  input, textarea, select {
+    font-size: 16px;
+  }
+}
+@media (max-width: 350px) {
+  #logoutButton i {
+    display: none;
+  }
+}
+/* This ensures that the footer doesn't overlap floated elements */
+#footerSpacer {
+  clear: both;
+  height: 40px;
+}
+
+/* Styles for Modal Dialogue/Popover
+   This is for content that pops up in a big box
+*/
+.BigPopover {
+  display: none;
+  position: fixed;
+  top: 5%;
+  left: 5%;
+  right: 5%;
+  background-color: #EEE;
+  border: 1px solid #444;
+  padding: 15px;
+  margin-top: 6px;
+  width: 90%;
+  max-height: 90%;
+  z-index: 205;
+  -moz-box-shadow: 3px 3px 20px #222;
+  -webkit-box-shadow: 3px 3px 20px #222;
+  box-shadow: 3px 3px 20px #222;
+  border-radius: 18px;
+  overflow: auto;
+}
+
+/* Heading used in Popover/modal dialogue */
+.popHeading {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Responsive popover handling */
+@media (max-width: 500px) {
+  #footerHomeLink {
+    display: none;
+  }
+
+  .BigPopover {
+    top: 2%;
+    left: 2%;
+    right: 2%;
+    padding: 10px;
+    width: 96% !important;
+  }
+}
+.closeButton {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 210;
+  background-image: url("/images/xIcon_shadow.svg");
+  background-size: 35px 35px;
+  width: 35px;
+  height: 35px;
+}
+
+.closeButton:hover {
+  background-image: url("/images/xIcon_bigshadow.svg");
+}
+
+#escHelp {
+  margin: 4px 0px 4px 0px;
+  font-size: 13px;
+  color: #888;
+  position: absolute;
+  top: -3px;
+  right: 22px;
+  display: none;
+  z-index: 210;
+}
+
+.backCurtain {
+  /* This was to support stupid IE8 that didn't allow for translucent colors */
+  /*background-image:url(/images/alpha-black-30.png);*/
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 201;
+}
+
+/* Styles used in standard forms used on apps (with an appForm) class. */
+.appForm {
+  /*Without a field separator, there's 20px of padding above each label */
+  /* Special code to handle Chosen dropdowns */
+  /*I don't know why, but if this is any less than 5px, the items won't show*/
+  /*fieldSeparator DIVs can be used to add space between fields... 
+  maybe I can do this another way.*/
+  /* Some special styles for forms that are centered on the page 
+  	These are used for very simple forms, like a login form in a popup */
+  /* Customizations to SimpleMDE Markdown Editor within appForm forms */
+  /* Responsive form elements for small screens */
+}
+.appForm label,
+.appForm .formItem {
+  /*overflow auto is required for something, maybe... I can't remember what,
+    but it breaks chosen dropdowns */
+  /*overflow:auto;*/
+  font-weight: bold;
+  display: block;
+  /*margin-bottom:20px;*/
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 400px;
+  /* For showing a group of inputs side by side. */
+}
+.appForm label div.markdown,
+.appForm .formItem div.markdown {
+  width: 100%;
+  flex-basis: 100%;
+  border: 1px solid darkgray;
+  padding: 4px;
+  font-weight: normal;
+}
+.appForm label input,
+.appForm label select,
+.appForm label .formGroup,
+.appForm label .prefill,
+.appForm .formItem input,
+.appForm .formItem select,
+.appForm .formItem .formGroup,
+.appForm .formItem .prefill {
+  display: block;
+  margin-left: auto;
+  width: 240px;
+  font-weight: normal;
+}
+.appForm label .formGroup,
+.appForm .formItem .formGroup {
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+}
+.appForm label .formGroup input,
+.appForm label .formGroup select,
+.appForm label .formGroup label,
+.appForm label .formGroup span,
+.appForm .formItem .formGroup input,
+.appForm .formItem .formGroup select,
+.appForm .formItem .formGroup label,
+.appForm .formItem .formGroup span {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.appForm label .formGroup span,
+.appForm .formItem .formGroup span {
+  font-weight: normal;
+}
+.appForm label .formGroup label,
+.appForm .formItem .formGroup label {
+  width: auto;
+  margin-right: 12px;
+  font-weight: normal;
+  margin: 0 3px 3px 0px;
+  margin-top: 0;
+  border: 1px solid rgba(127, 127, 127, 0.2);
+  padding-left: 2px;
+  padding-right: 4px;
+  padding-bottom: 0px;
+  border-radius: 3px;
+  background-color: rgba(127, 127, 127, 0.05);
+  white-space: nowrap;
+}
+.appForm label .formGroup label:hover,
+.appForm .formItem .formGroup label:hover {
+  border-color: rgba(127, 127, 127, 0.5);
+  background-color: rgba(127, 127, 127, 0.025);
+}
+.appForm label .formGroup label:last-child,
+.appForm .formItem .formGroup label:last-child {
+  margin: 0;
+}
+.appForm label .formGroup label input[type],
+.appForm .formItem .formGroup label input[type] {
+  width: auto;
+  margin: 3px 5px 3px 2px;
+}
+.appForm label .checkGroup,
+.appForm .formItem .checkGroup {
+  margin-bottom: 15px;
+  display: block;
+  min-width: 240px;
+}
+.appForm label .checkGroup input[type=checkbox], .appForm label .checkGroup input[type=radio],
+.appForm .formItem .checkGroup input[type=checkbox],
+.appForm .formItem .checkGroup input[type=radio] {
+  float: none;
+  display: inline;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+.appForm label .checkGroup .icheckbox_square-blue,
+.appForm .formItem .checkGroup .icheckbox_square-blue {
+  margin-right: 4px;
+}
+.appForm label .checkGroup label,
+.appForm .formItem .checkGroup label {
+  display: inline;
+  font-weight: normal;
+  vertical-align: middle;
+}
+.appForm label .checkGroup label:first-child,
+.appForm .formItem .checkGroup label:first-child {
+  display: block;
+  margin-bottom: 5px;
+}
+.appForm label span.required,
+.appForm .formItem span.required {
+  color: red;
+  font-weight: normal;
+  font-size: 14px;
+  flex: auto;
+}
+.appForm label input[type=checkbox], .appForm label input[type=radio],
+.appForm .formItem input[type=checkbox],
+.appForm .formItem input[type=radio] {
+  width: 15px;
+}
+.appForm label .checkboxLeft,
+.appForm .formItem .checkboxLeft {
+  display: inline-block;
+  width: 240px;
+}
+.appForm label .checkboxLeft input[type=checkbox],
+.appForm .formItem .checkboxLeft input[type=checkbox] {
+  margin-left: 0;
+  margin-right: 0;
+  width: initial;
+  display: inline;
+}
+.appForm label .icheckbox_square-blue,
+.appForm .formItem .icheckbox_square-blue {
+  margin-right: 218px;
+}
+.appForm label .error,
+.appForm .formItem .error {
+  font-weight: normal;
+  /*white-space: nowrap;*/
+  /*be careful with this one*/
+  display: block;
+  width: 100%;
+  padding-top: 5px;
+  text-align: left;
+  clear: both;
+}
+.appForm label .error.hidden,
+.appForm label .error.eplhidden,
+.appForm .formItem .error.hidden,
+.appForm .formItem .error.eplhidden {
+  display: none;
+}
+.appForm label .helpIcon,
+.appForm .formItem .helpIcon {
+  flex: auto;
+  margin-left: 3px;
+}
+.appForm label.centered input, .appForm label.centered button, .appForm .formItem.centered input, .appForm .formItem.centered button {
+  margin: auto;
+}
+.appForm > label + label,
+.appForm > label + .formItem,
+.appForm > .formItem + .formItem,
+.appForm > .formItem + label,
+.appForm .sectionContents > label + label,
+.appForm fieldset label + label {
+  padding-top: 20px;
+}
+.appForm label.optional {
+  font-weight: normal;
+}
+.appForm .chosen-container {
+  font-weight: normal;
+  overflow: visible;
+}
+.appForm .chosen-container .chosen-results {
+  padding-left: 5px;
+}
+.appForm textarea {
+  width: 100%;
+}
+.appForm .formSubmit {
+  text-align: center;
+}
+.appForm .formSubmit input,
+.appForm .formSubmit label input {
+  display: block;
+  margin: 0 auto;
+  font-size: 20px;
+}
+.appForm .noticeBox {
+  width: 100%;
+  text-align: center;
+}
+.appForm .fieldSeparator {
+  clear: both;
+  padding-top: 20px;
+}
+.appForm.centeredForm label input, .appForm.centeredForm label .checkboxLeft {
+  width: 275px;
+}
+.appForm.centeredForm label .checkboxLeft input {
+  width: initial;
+}
+.appForm.centeredForm {
+  width: 400px;
+  margin: 0 auto;
+}
+.appForm.centeredForm label.formSubmit input {
+  width: 100%;
+}
+.appForm fieldset {
+  margin-top: 20px;
+  width: 400px;
+  padding-top: 11px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+.appForm fieldset label,
+.appForm fieldset .formItem {
+  width: 374px;
+}
+.appForm fieldset label input,
+.appForm fieldset label select,
+.appForm fieldset .formGroup,
+.appForm fieldset label .prefill {
+  width: 229px;
+}
+.appForm .fieldDesc, .appForm .dataDesc, .appForm .optionList {
+  margin-top: 5px;
+  font-weight: normal;
+}
+.appForm .labelDesc {
+  width: 100%;
+  font-size: 11px;
+  display: block;
+  margin-top: 6px;
+}
+.appForm .CodeMirror, .appForm .CodeMirror-scroll {
+  min-height: 100px;
+  font-weight: normal;
+}
+.appForm .editor-toolbar {
+  padding: 0 1px;
+}
+.appForm .editor-toolbar:before {
+  margin-bottom: 0px;
+}
+.appForm .editor-toolbar:after {
+  margin-top: 0px;
+}
+.appForm .CodeMirror {
+  padding: 3px;
+}
+.appForm .editor-toolbar.fullscreen,
+.appForm .CodeMirror-fullscreen {
+  z-index: 13;
+}
+.appForm .editor-toolbar, .appForm .CodeMirror.CodeMirror-wrap {
+  width: 100%;
+}
+@media (max-width: 450px) {
+  .appForm {
+    /* Font size on iOS is pretty small in input fields by default.
+    16px is needed on phones to prevent auto-zooming */
+    /* Used in FormBuilder Forms */
+  }
+  .appForm.centeredForm label input {
+    width: 100%;
+    flex-basis: 100%;
+  }
+  .appForm.centeredForm {
+    width: 100%;
+  }
+  .appForm input,
+.appForm textarea,
+.appForm select {
+    font-size: 16px;
+  }
+  .appForm label {
+    font-weight: bold;
+    /* I don't know why the below was set... it looked really goofy and added too much space.*/
+    /* Commented out by JDL on Oct 1 2019*/
+    /*margin-bottom:15px;*/
+    width: 100%;
+    /* overflow:auto covers chosen dropdowns */
+    /*overflow:auto;*/
+  }
+  .appForm label .checkboxLeft {
+    width: auto;
+  }
+  .appForm .formItem,
+.appForm .formItem .formGroup {
+    width: 100%;
+  }
+  .appForm label input,
+.appForm label select,
+.appForm .formItem .formGroup {
+    width: 100%;
+    flex-basis: 100%;
+  }
+  .appForm label input[type=checkbox] {
+    width: 15px;
+    margin-right: 0;
+  }
+  .appForm .formSection {
+    margin-left: 0px;
+    margin-right: 0px;
+    /*border:1px solid #BBBBBB;*/
+    border: none;
+  }
+  .appForm .sectionContents {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+}
+
+/* filterForm is used by filterTable for the search filter form inputs */
+/* The filterform styles will be added into the appForm stylesheet, I think */
+#filterForm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+#filterForm h3 {
+  margin: 0;
+  flex-basis: 100%;
+}
+#filterForm label, #filterForm .formItem {
+  margin: 6px;
+}
+#filterForm label[for=sortBy] {
+  display: none;
+}
+#filterForm .formGroup label {
+  margin: 0;
+}
+#filterForm .year {
+  width: 80px;
+}
+#filterForm .month {
+  width: 115px;
+}
+#filterForm .day {
+  width: 72px;
+}
+#filterForm .button {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+#filterForm .formItem label {
+  font-weight: bold;
+  background-color: rgba(128, 128, 128, 0.2);
+  margin: 0 3px;
+  border-radius: 4px;
+  padding: 2px 4px;
+  border: 1px solid rgba(127, 127, 127, 0.3);
+}
+#filterForm .formItem label:hover {
+  border-color: rgba(127, 127, 127, 0.5);
+  background-color: rgba(127, 127, 127, 0.025);
+}
+#filterForm .formItem input[type=radio] {
+  /* Any time you use vertical align, you're gonna have a bad time */
+  vertical-align: text-top;
+  margin-right: 0;
+}
+#filterForm .deleteRow {
+  text-align: center;
+}
+
+.formItem label.checked,
+.formGroup label.checked,
+.appForm .formGroup label.checked,
+.appForm .formItem .formGroup label.checked,
+#filterForm .formItem label.checked {
+  border-color: #005fb2;
+  background-color: transparent;
+}
+.formItem label.checked:hover,
+.formGroup label.checked:hover,
+.appForm .formGroup label.checked:hover,
+.appForm .formItem .formGroup label.checked:hover,
+#filterForm .formItem label.checked:hover {
+  border-color: #004B8D;
+}
+
+.sortLink {
+  white-space: nowrap;
+}
+
+/* Tweak basic HTML styles within markdown containers */
+.markdown p {
+  margin-top: 0px;
+}
+
+/* If the last thing in a markdown is a p, give it no bottom margin */
+.markdown p:last-child {
+  margin-bottom: 0;
+}
+
+.markdown ul {
+  padding: 5px 0px 5px 20px;
+  margin: 5px 0px;
+}
+
+.markdown table {
+  /*border: 1px solid #aaa;*/
+  border-collapse: collapse;
+}
+
+.markdown table td, .markdown table th {
+  padding: 4px;
+  border: 1px solid rgba(127, 127, 127, 0.2);
+}
+
+.markdown table th {
+  border-color: #7f7f7f;
+}
+
+.markdown table thead tr {
+  background-color: #444;
+}
+
+.markdown table thead tr th {
+  color: white;
+}
+
+.markdown table tbody tr:nth-child(even):not(.heading) {
+  background-color: #dddddd;
+  background-color: rgba(127, 127, 127, 0.1);
+}
+
+.markdown table tbody tr:nth-child(odd):not(.heading) {
+  /* could put another color here */
+}
+
+.markdown li > ul {
+  padding-top: 1px;
+  margin-top: 1px;
+}
+
+/* Styles for the Markdown Editor */
+main .CodeMirror,
+main .CodeMirror-scroll {
+  min-height: 100px;
+}
+
+main .editor-toolbar {
+  padding: 0 1px;
+}
+
+main .editor-toolbar:before {
+  margin-bottom: 0px;
+}
+
+main .editor-toolbar:after {
+  margin-top: 0px;
+}
+
+/* Customizations to SimpleMDE Markdown Editor within appForm forms */
+.appForm .CodeMirror, .appForm .CodeMirror-scroll {
+  min-height: 100px;
+  font-weight: normal;
+}
+
+main .CodeMirror,
+main .CodeMirror-scroll {
+  min-height: 100px;
+}
+
+.appForm .editor-toolbar,
+main .editor-toolbar {
+  padding: 0 1px;
+}
+
+.appForm .editor-toolbar:before,
+main .editor-toolbar:before {
+  margin-bottom: 0px;
+}
+
+.appForm .editor-toolbar:after,
+main .editor-toolbar:after {
+  margin-top: 0px;
+}
+
+.appForm .CodeMirror {
+  padding: 3px;
+}
+
+.appForm .editor-toolbar.fullscreen,
+.appForm .CodeMirror-fullscreen {
+  z-index: 13;
+}
+
+/************************************************/
+/* General Classes for Applications and Content */
+/************************************************/
+.columnleft, .columnright {
+  width: 48%;
+  /* Fallback for old browsers that don't support calc() */
+  width: calc(50% - 10px);
+  padding: 0 0px;
+}
+
+.columnleft {
+  float: left;
+  margin-right: 10px;
+}
+
+.columnright {
+  float: right;
+  margin-left: 10px;
+}
+
+/* Formerly used for headings on things in spans.
+These shouldn't be used anymore. Use h3 instead. */
+.BoldTitle {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* An ostenibly cross-browser way to force a new line after floated elements. */
+.clearfloat, .clearFloat {
+  clear: both;
+  height: 0;
+  font-size: 1px;
+  line-height: 0px;
+}
+
+.hidden, .eplhidden,
+.appForm label.hidden,
+.appForm .formItem.hidden,
+.appForm label.eplhidden,
+.appForm .formItem.eplhidden {
+  display: none;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+.centered {
+  text-align: center;
+}
+
+.heading .centered {
+  text-align: center;
+}
+
+.plainLink {
+  color: black;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.plainLink:hover {
+  text-decoration: none;
+}
+
+/* Styles small icon beside hard coded bookmarks in /Includes/SidebarBookmarks.cfm */
+.linkIcon {
+  width: 16px;
+  height: 14px;
+  margin-right: 5px;
+  position: relative;
+  top: 2px;
+}
+
+.helpIcon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: none;
+  vertical-align: top;
+  background-image: url("/images/helpIcon.svg");
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+}
+
+/* EPL COLORS using underscores is BAD -- don't do it!*/
+.EPLyellow {
+  color: #FDBB30;
+}
+
+.EPLgreen {
+  color: #7BC143;
+}
+
+.EPLmagenta, .EPLpink {
+  color: #E40E62;
+}
+
+.EPLpurple {
+  color: #7C4199;
+}
+
+.EPLblue, .EPLlightBlue {
+  color: #009DDC;
+}
+
+/*lightBlue is alternate nickname for blue*/
+.EPLdarkBlue {
+  color: #004B8D;
+}
+
+.EPLmagentaBG, .EPLpinkBG {
+  background-color: #E40E62;
+}
+
+/*alternate nickname for magenta*/
+.EPLpinkBG, .EPLmagentaBG {
+  background-color: #E40E62;
+}
+
+.EPLpurpleBG {
+  background-color: #7C4199;
+}
+
+.EPLgreenBG {
+  background-color: #7BC143;
+}
+
+.EPLyellowBG {
+  background-color: #FDBB30;
+}
+
+.EPLblueBG {
+  background-color: #009DDC;
+}
+
+.EPLlightBlueBG {
+  background-color: #009DDC;
+}
+
+.EPLdarkBlueBG {
+  background-color: #004B8D;
+}
+
+.grayBox, .noticeBox, .warnBox, .successBox {
+  background-color: rgba(127, 127, 127, 0.25);
+  border: solid 1px rgba(127, 127, 127, 0.45);
+  padding: 10px;
+  margin: 5px;
+}
+.grayBox h1, .grayBox h2, .grayBox h3, .noticeBox h1, .noticeBox h2, .noticeBox h3, .warnBox h1, .warnBox h2, .warnBox h3, .successBox h1, .successBox h2, .successBox h3 {
+  margin-top: 0;
+}
+
+.noticeBox {
+  background-color: rgba(255, 80, 80, 0.4);
+  border-color: rgba(255, 80, 80, 0.6);
+}
+
+.warnBox {
+  background-color: rgba(255, 255, 0, 0.3);
+  border-color: rgba(207, 210, 0, 0.88);
+}
+
+.successBox {
+  background-color: rgba(24, 255, 41, 0.25);
+  border-color: rgba(0, 130, 9, 0.5);
+}
+
+/* Validation errors can use pulsating red borders around the field */
+#appsBody .valError {
+  border-color: red;
+  border-width: 2px;
+  border-radius: 3px;
+  border-style: inset;
+  /*Experimental animation*/
+  box-shadow: 0 0 0 rgba(252, 24, 24, 0.4);
+  animation: pulse 5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(252, 24, 24, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(252, 24, 24, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(252, 24, 24, 0);
+  }
+}
+#appsBody .valError:hover,
+#appsBody .valError:focus,
+.chosen-container-single .chosen-single.valError:hover {
+  animation: none;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: #00AA00;
+}
+
+.tinyTip, .tinytip {
+  font-size: 11px;
+  margin: 0 0 0 0;
+  font-weight: normal;
+}
+
+.padded td {
+  padding: 3px 5px 3px 5px;
+}
+
+.noBreak, .nobreak, .nowrap, .noWrap {
+  white-space: nowrap;
+}
+
+.rowGradient {
+  background-color: #F8F8F8;
+  background: linear-gradient(to bottom, rgba(127, 127, 127, 0.1) 25%, rgba(127, 127, 127, 0.25) 100%);
+}
+
+/* Make table colors alternate */
+.altColors tr:nth-child(even):not(.heading) {
+  background-color: #dae6f7;
+  background-color: rgba(0, 106, 255, 0.12);
+  background-color: rgba(0, 75, 141, 0.15);
+}
+
+/* Make table colors alternate but in red instead of the accent Color */
+.altColors.red tr:nth-child(even):not(.heading) {
+  background-color: #ff8484;
+  background-color: rgba(141, 0, 0, 0.15);
+}
+
+/* Alternate in pairs (when every second row is hidden) */
+.altColors.pairs tr:nth-child(4n+1):not(.heading),
+.altColors.pairs tr:nth-child(4n+2):not(.heading) {
+  background-color: inherit;
+}
+
+.altColors.pairs tr:nth-child(4n+3):not(.heading),
+.altColors.pairs tr:nth-child(4n+4):not(.heading) {
+  background-color: #dae6f7;
+  background-color: rgba(0, 106, 255, 0.12);
+  background-color: rgba(0, 75, 141, 0.15);
+}
+
+.altColors.pairs.red tr:nth-child(4n+3):not(.heading),
+.altColors.pairs.red tr:nth-child(4n+4):not(.heading) {
+  background-color: #ff8484;
+  background-color: rgba(141, 0, 0, 0.15);
+}
+
+.altRow, .altrow {
+  background-color: #dae6f7;
+  background-color: rgba(0, 106, 255, 0.12);
+  background-color: rgba(0, 75, 141, 0.15);
+}
+
+.altRowGray {
+  background-color: #F7F7F7;
+  /* Support for dark mode */
+  background-color: rgba(127, 127, 127, 0.2);
+}
+
+/* These are presets for styling tables with a set of colors for alernating both rows and columns */
+.heading,
+.altColors thead {
+  font-weight: bold;
+  color: white;
+  background-color: #004B8D;
+  padding: 7px 7px 7px 7px;
+}
+
+.heading.red,
+.altColors.red thead {
+  background-color: rgba(255, 0, 0, 0.8);
+}
+
+/* Shade alternating columns by giving a table this class */
+.altColColors td:nth-child(even) {
+  background-image: url(/images/alpha-black-05.png);
+  background-image: linear-gradient(rgba(127, 127, 127, 0.1), rgba(127, 127, 127, 0.1));
+}
+
+.headingGray {
+  font-weight: bold;
+  color: white;
+  background-color: #444444;
+  padding: 7px 7px 7px 7px;
+}
+
+.heading th,
+.altColors thead th {
+  text-align: left;
+  padding: 0 5px 0 5px;
+}
+
+.heading a,
+.altColors thead a {
+  color: #d0e3ff;
+}
+
+.altColors caption {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: left;
+}
+
+/*use hoverHighlight to allow rows and columns to highlight on hover */
+.hoverHighlight {
+  overflow: hidden;
+}
+
+.hoverHighlight tr:hover {
+  background-image: url(/images/alpha-yellow-20.png);
+}
+
+.hoverHighlight tr td,
+.hoverHighlight tr th {
+  position: relative;
+}
+
+.hoverHighlight tr td:hover::after,
+.hoverHighlight tr th:hover::after {
+  background-image: url(/images/alpha-yellow-20.png);
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -5000px;
+  height: 10000px;
+  width: 100%;
+  z-index: -1;
+}
+
+/* Styles for filterTable */
+#filterTable {
+  position: relative;
+}
+#filterTable tbody tr {
+  height: 24px;
+}
+#filterTable .editing {
+  padding: 0 2px;
+  position: relative;
+}
+#filterTable .editing:focus {
+  outline: none;
+}
+#filterTable .editing:not(.noTip)::before {
+  content: "Press Enter to Save";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 5px;
+  margin-left: -80px;
+  padding: 7px;
+  width: 135px;
+  border-radius: 3px;
+  background-color: rgba(51, 51, 51, 0.7);
+  color: #fff;
+  text-align: center;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.2;
+  opacity: 0;
+  animation: opacityFadeOut 7s ease;
+}
+#filterTable .saving {
+  color: rgba(128, 128, 128, 0.7);
+}
+#filterTable .inPlace {
+  width: 100%;
+  font-size: 15px;
+  border-width: 1px;
+  padding: 1px 2px;
+}
+#filterTable select.inPlace {
+  min-width: 45px;
+}
+#filterTable .datepicker {
+  background-image: none;
+}
+
+@keyframes opacityFadeOut {
+  0% {
+    opacity: 100%;
+  }
+  50% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0%;
+  }
+}
+.outlined, .outlinedGreen {
+  background-color: #d2ffd0;
+  border: solid 1px #08a600;
+  color: #08a600;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  margin-right: 2px;
+  padding: 1px 2px;
+}
+
+/* outlined but orange*/
+.outlinedOrange, .outlinedDraft {
+  background-color: #ffd9b3;
+  border: solid 1px #f54e4e;
+  color: #f54e4e;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  margin-right: 2px;
+  padding: 1px 2px;
+}
+
+/* Much like outline/draftOutline but gray, for archiving */
+.outlinedGray, .outlinedGrey, .outlinedArch {
+  background-color: #DDDDDE;
+  border: solid 1px #999999;
+  color: #444444;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  margin-right: 2px;
+  padding: 1px 2px;
+}
+
+/* Often used for errors and warnings, important info */
+.outlinedRed {
+  background-color: #ffefef;
+  border: solid 1px #ff0000;
+  color: #ff0000;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  margin-right: 2px;
+  padding: 1px 2px;
+}
+
+.subtleGray {
+  color: #999;
+  font-style: italic;
+}
+
+.spacedList li {
+  margin-bottom: 20px;
+}
+
+/* Used for links that are not currently clickable and such */
+.inactive {
+  color: #aaa;
+}
+
+/* Adds icon for links to certain filetypes */
+a[href$=".ppt"], a[href$=".pptx"], a[href$=".ppsx"], a[href$=".pdf"], a[href$=".doc"], a[href$=".docx"], a[href$=".xls"], a[href$=".xlsx"] {
+  padding-right: 20px;
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+}
+
+a[href$=".ppt"], a[href$=".pptx"], a[href$=".ppsx"] {
+  background-image: url("/images/type_icons/ppt-icon_16.png");
+}
+
+a[href$=".pdf"] {
+  background-image: url("/images/type_icons/pdf-icon_16.png");
+}
+
+a[href$=".doc"], a[href$=".docx"] {
+  background-image: url("/images/type_icons/doc-icon_16.png");
+}
+
+a[href$=".xls"], a[href$=".xlsx"] {
+  background-image: url("/images/type_icons/xls-icon_16.png");
+}
+
+/* For tabbed Easy-Edit Pages (or other pages with tabs) */
+.tabs {
+  margin-top: 10px;
+}
+
+.tab {
+  position: relative;
+  z-index: 10;
+  color: #DDD;
+  font-size: 16px;
+  background-color: #004B8D;
+  padding: 4px 8px 0px 8px;
+  background-image: url("/images/alpha-black-30.png");
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom: 1px solid #0d2b4a;
+  margin-left: 4px;
+}
+
+.tab:first-child {
+  margin-left: 0 !important;
+}
+
+.tab.selected {
+  border-bottom: 1px solid #004B8D;
+  background-image: none;
+  color: #FFFFFF;
+  box-shadow: 0px 0px 6px rgba(50, 50, 50, 0.68);
+  z-index: -1;
+}
+
+.tab:visited {
+  color: #DDD;
+}
+
+.tab:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+.tab.selected:hover {
+  text-decoration: none;
+}
+
+.tabContent {
+  /*border:1px solid #BBBBBB;*/
+  display: none;
+  border: none;
+}
+
+.tabContent h2, .tabContent h1 {
+  background-color: #004B8D;
+  color: white;
+  margin-top: 0px;
+  padding-left: 8px;
+  z-index: 7;
+  position: relative;
+}
+
+/* This used to apply to any class of datepicker. I don't think it should apply to anything other than inputs */
+input.datepicker, .hasDatepicker {
+  background-image: url("https://www2.epl.ca/images/calendar_icon16.png");
+  background-position: 100% 50%;
+  background-position: calc(100% - 1px) 50%;
+  background-repeat: no-repeat;
+}
+
+/* Forces chosen dropdowns to align left*/
+.chosen-drop {
+  text-align: left;
+}
+
+/* Allows columns to be defined in modern browsers */
+.cols1 {
+  -webkit-column-count: 1;
+  /* Chrome, Safari, Opera */
+  -moz-column-count: 1;
+  /* Firefox */
+  column-count: 1;
+}
+
+.cols2 {
+  -webkit-column-count: 2;
+  /* Chrome, Safari, Opera */
+  -moz-column-count: 2;
+  /* Firefox */
+  column-count: 2;
+}
+
+.cols3 {
+  -webkit-column-count: 3;
+  /* Chrome, Safari, Opera */
+  -moz-column-count: 3;
+  /* Firefox */
+  column-count: 3;
+}
+
+/* Styles for list of files */
+/* Override link styling for links to files */
+.filesList a[href$=".pdf"], .filesList a[href$=".ppt"], .filesList a[href$=".pptx"], .filesList a[href$=".ppsx"], .filesList a[href$=".doc"], .filesList a[href$=".docx"], .filesList a[href$=".xls"], .filesList a[href$=".xlsx"] {
+  padding-right: 0px;
+  background-image: none;
+}
+
+table.filesList thead tr {
+  background-color: #004B8D !important;
+  color: white;
+}
+
+table.filesList th {
+  padding: 0 5px;
+}
+
+table.filesList th a {
+  color: #DAE6F7;
+}
+
+table.filesList {
+  font-family: "Segoe UI", Helvetica;
+  font-size: 12pt;
+  border-collapse: collapse;
+}
+
+/* Make table colors alternate */
+table.filesList tr:nth-child(even) {
+  background-color: rgba(0, 106, 255, 0.12);
+}
+
+table.filesList tr:nth-child(odd) {
+  background-color: rgba(0, 106, 255, 0.05);
+}
+
+table.filesList td {
+  padding: 0 5px;
+}
+
+table.filesList th {
+  text-align: left;
+  font-weight: bold;
+}
+
+table.filesList span.time {
+  font-size: 10pt;
+}
+
+table.filesList .fileIconName,
+table.filesList .fileIcon {
+  position: relative;
+  height: 32px;
+  padding-left: 0;
+  font-weight: normal;
+}
+
+table.filesList img.fileImage,
+table.filesList img.dirImage {
+  width: 32px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/*Little popup thumbnail that shows on hover over the thumbnail*/
+table.filesList .thumbPop {
+  width: 256px;
+  background-color: white;
+  position: absolute;
+  left: 32px;
+  top: 32px;
+  z-index: 2;
+  box-shadow: 3px 3px 20px #222;
+}
+
+table.filesList .emptyFolder {
+  text-align: center;
+}
+
+/* allow this general style to apply to anything*/
+.highlighted,
+table.filesList tr.highlighted {
+  background-image: url("/images/alpha-yellow-20.png");
+}
+
+table.filesList .delTD {
+  text-align: center;
+  width: 26px;
+}
+
+table.filesList .sizeTD {
+  min-width: 60px;
+  font-weight: normal;
+  text-align: right;
+}
+
+/* This styles the divs of elements */
+div.filesList {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+div.filesList div {
+  margin: 5px;
+  width: 128px;
+}
+
+div.filesList div img {
+  width: 100%;
+}
+
+/* style for the imagebox that shows big photos */
+#imagebox {
+  position: fixed;
+  z-index: 99;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+#imagebox img {
+  max-width: 90%;
+  max-width: calc(100% - 25px);
+  max-height: 80%;
+  max-height: calc(100% - 25px);
+  /*border-radius:8px;*/
+  -moz-box-shadow: 3px 3px 20px #222;
+  -webkit-box-shadow: 3px 3px 20px #222;
+  box-shadow: 3px 3px 20px #222;
+}
+
+/* Used to ensure QR codes have crip edges, even when they are tiny low-res images */
+.pixelated, .qr, .barcode {
+  image-rendering: optimizeSpeed;
+  /* STOP SMOOTHING, GIVE ME SPEED  */
+  image-rendering: -moz-crisp-edges;
+  /* Firefox                        */
+  image-rendering: -o-crisp-edges;
+  /* Opera                          */
+  image-rendering: -webkit-optimize-contrast;
+  /* Chrome (and eventually Safari) */
+  image-rendering: pixelated;
+  /* Chrome */
+  image-rendering: optimize-contrast;
+  /* CSS3 Proposed                  */
+  -ms-interpolation-mode: nearest-neighbor;
+  /* IE8+                           */
+}
+
+/* A segmented progress bar to show progress over multiple steps */
+.progress-steps {
+  padding: 0;
+  display: flex;
+  list-style: none;
+  /* Make the arrow shape */
+  /* Make the arrow back shape */
+  /* Set the colors for a complete step */
+  /* Make the arrow shape blue when it's complete */
+}
+.progress-steps > li {
+  position: relative;
+  overflow: visible;
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
+  flex: 1;
+}
+.progress-steps > li:first-child {
+  border-left: none;
+}
+.progress-steps > li:last-child {
+  border-right: none;
+}
+.progress-steps > li a {
+  background-color: rgba(127, 127, 127, 0.3);
+  color: black;
+  height: 40px;
+}
+.appsThemeDark .progress-steps > li a {
+  color: #DDD;
+}
+.progress-steps > li a:hover {
+  text-decoration: none;
+}
+.progress-steps > li > a:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.progress-steps > li > a:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.progress-steps > li .progress-arrow {
+  position: absolute;
+  top: 0px;
+  right: -20px;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 20px 0 20px 20px;
+  border-color: transparent transparent transparent rgba(127, 127, 127, 0.3);
+  z-index: 150;
+}
+.progress-steps > li .progress-wedge {
+  position: absolute;
+  top: 0px;
+  left: -20px;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 20px 0 20px 20px;
+  border-color: rgba(127, 127, 127, 0.3) rgba(127, 127, 127, 0.3) rgba(127, 127, 127, 0.3) transparent;
+  z-index: 150;
+}
+.progress-steps > li.complete > a {
+  background-color: #004B8D;
+  color: #fff;
+}
+.progress-steps > li.complete .progress-arrow {
+  border-color: transparent transparent transparent #004B8D;
+}
+.progress-steps > li.complete .progress-wedge {
+  border-color: #004B8D #004B8D #004B8D transparent;
+}
+
+/* Pulsating animation */
+@keyframes pulsateMain {
+  from {
+    background-color: rgba(0, 75, 141, 0.85);
+  }
+  to {
+    background-color: rgba(0, 75, 141, 0.6);
+  }
+}
+@keyframes pulsateArrow {
+  from {
+    border-color: transparent transparent transparent rgba(0, 75, 141, 0.85);
+  }
+  to {
+    border-color: transparent transparent transparent rgba(0, 75, 141, 0.6);
+  }
+}
+@keyframes pulsateWedge {
+  from {
+    border-color: rgba(0, 75, 141, 0.85) rgba(0, 75, 141, 0.85) rgba(0, 75, 141, 0.85) transparent;
+  }
+  to {
+    border-color: rgba(0, 75, 141, 0.6) rgba(0, 75, 141, 0.6) rgba(0, 75, 141, 0.6) transparent;
+  }
+}
+/* Use a pulsating animation on an active step */
+.progress-steps > li.active > a {
+  -webkit-animation: pulsateMain 2s linear 0s infinite alternate;
+  animation: pulsateMain 2s linear 0s infinite alternate;
+}
+
+.progress-steps > li.active .progress-arrow {
+  -webkit-animation: pulsateArrow 2s linear 0s infinite alternate;
+  animation: pulsateArrow 2s linear 0s infinite alternate;
+}
+
+.progress-steps > li.active .progress-wedge {
+  -webkit-animation: pulsateWedge 2s linear 0s infinite alternate;
+  animation: pulsateWedge 2s linear 0s infinite alternate;
+}
+
+.progress-steps > li > a {
+  display: block;
+  padding: 10px 0px 10px 7px;
+  white-space: nowrap;
+}
+
+.step {
+  font-weight: bold;
+}
+
+.step-detail {
+  font-weight: normal;
+}
+
+/* This max-width may need to go up if the content in the arrows is quite long */
+@media (max-width: 620px) {
+  #innerHeader form {
+    width: 100%;
+  }
+
+  .columnleft, .columnright {
+    width: 100%;
+    float: none;
+    margin: 0;
+  }
+
+  .step-detail {
+    display: none;
+  }
+
+  .progress-steps > li > a {
+    padding: 10px 6px;
+    text-align: center;
+  }
+}
+/* Overrides for tooltips so they don't get hidden */
+.opentip-container {
+  z-index: 200;
+}
+
+#InnerPopOver .opentip-container {
+  z-index: 210;
+}
+
+/* Add this attribute to the element that needs a tooltip */
+[data-tooltip] {
+  position: relative;
+  z-index: 200;
+  /*cursor: pointer;*/
+}
+
+#InnerPopOver [data-tooltip] {
+  z-index: 210;
+}
+
+/* This gets around an IE glitch where the underline appears IN the tooltip
+  If you really want a tooltip on hover, you'll have to override this and
+  accept that the underline will also show in the tooltip  */
+a[data-tooltip] {
+  text-decoration: none;
+}
+
+/* Hide the tooltip content by default */
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  /*-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";*/
+  /*filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);*/
+  opacity: 0;
+  pointer-events: none;
+  text-decoration: none;
+}
+
+/* Position tooltip above the element */
+[data-tooltip]:before {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-bottom: 5px;
+  margin-left: -80px;
+  padding: 7px;
+  width: 160px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #000;
+  background-color: rgba(51, 51, 51, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: center;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+[data-tooltip]:after {
+  position: absolute;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -5px;
+  width: 0;
+  border-top: 5px solid #000;
+  border-top: 5px solid rgba(51, 51, 51, 0.9);
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+
+/* A modified version that appears to the left, used on forms/report.cfm */
+.leftTip[data-tooltip]:before {
+  position: absolute;
+  bottom: 0%;
+  right: calc(100% + 5px);
+  left: auto;
+  margin-bottom: -5px;
+  margin-left: -80px;
+  padding: 7px;
+  width: auto;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #000;
+  background-color: rgba(51, 51, 51, 0.9);
+  color: #fff;
+  content: attr(data-tooltip);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+/* Triangle hack to make tooltip look like a speech bubble */
+.leftTip[data-tooltip]:after {
+  position: absolute;
+  bottom: 25%;
+  left: -5px;
+  right: auto;
+  margin-left: 0px;
+  width: 0;
+  border-left: 5px solid #000;
+  border-left: 5px solid rgba(51, 51, 51, 0.9);
+  border-right: 5px solid transparent;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  content: " ";
+  font-size: 0;
+  line-height: 0;
+}
+
+/* Show tooltip content on hover */
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  /*-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";*/
+  /*filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);*/
+  opacity: 1;
+  text-decoration: none;
+}
+
+/* Darken links in tooltips when in dark mode */
+.appsThemeDark .opentip a {
+  color: #004B8D;
+}
+
+#InnerPopOver h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+/* flashes a bright yellow color for a second */
+.flash {
+  background: linear-gradient(0deg, rgba(255, 255, 0, 0.4) 0%, rgba(255, 255, 0, 0) 80%, rgba(255, 255, 0, 0) 100%);
+  background-size: 100% 400%;
+  animation: fadeOut 2s ease;
+  animation-iteration-count: 1;
+}
+
+@keyframes fadeOut {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
+/* Slider switch used in inOut and inOutGo */
+.switch {
+  position: relative;
+  display: block;
+  width: 60px;
+  height: 34px;
+  -webkit-tap-highlight-color: transparent;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  background-color: rgba(127, 127, 127, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  border-top-color: rgba(0, 0, 0, 0.05);
+  border-left-color: rgba(0, 0, 0, 0.05);
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+  border-right-color: rgba(255, 255, 255, 0.05);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  -webkit-tap-highlight-color: transparent;
+  /* Rounded sliders */
+}
+.switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.52);
+}
+.switch .slider.round {
+  border-radius: 34px;
+}
+.switch .slider.round:before {
+  border-radius: 50%;
+}
+.switch input:checked + .slider {
+  background-color: #00df26;
+}
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px #00df26;
+}
+.switch input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.switch.small {
+  width: 30px;
+  height: 17px;
+}
+.switch.small .slider:before {
+  height: 13px;
+  width: 13px;
+  left: 1px;
+  bottom: 1px;
+}
+.switch.small .slider.round {
+  border-radius: 17px;
+}
+.switch.small input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+
+.switch.large {
+  width: 120px;
+  height: 68px;
+}
+.switch.large .slider:before {
+  height: 52px;
+  width: 52px;
+  left: 7px;
+  bottom: 7px;
+}
+.switch.large .slider.round {
+  border-radius: 68px;
+}
+.switch.large input:checked + .slider:before {
+  -webkit-transform: translateX(52px);
+  -ms-transform: translateX(52px);
+  transform: translateX(52px);
+}
+
+/*This core stylesheet includes all the components from partials (starting with _).*/
+.pinkButton, a.pinkButton, .pinkButtonSubtle, a.pinkButtonSubtle {
+  text-decoration: none;
+  -webkit-appearance: none;
+  border: solid 1px #89083b;
+  background-color: #f6689f;
+  border-top-color: #f99abf;
+  border-left-color: #f99abf;
+  color: #5b0627;
+  padding: 1px 3px 1px 3px;
+  border-radius: 3px;
+}
+.pinkButton:hover, a.pinkButton:hover, .pinkButtonSubtle:hover, a.pinkButtonSubtle:hover {
+  background-color: #f99abf;
+  color: #2e0314;
+  text-decoration: none;
+}
+.pinkButton:active, a.pinkButton:active, .pinkButtonSubtle:active, a.pinkButtonSubtle:active {
+  background-color: #fab3cf;
+  border-color: rgba(228, 14, 98, 0.2);
+}
+.pinkButton.disabled, .pinkButton.disabled:visited, .pinkButton[disabled], .pinkButton[disabled]:visited, a.pinkButton.disabled, a.pinkButton.disabled:visited, a.pinkButton[disabled], a.pinkButton[disabled]:visited, .pinkButtonSubtle.disabled, .pinkButtonSubtle.disabled:visited, .pinkButtonSubtle[disabled], .pinkButtonSubtle[disabled]:visited, a.pinkButtonSubtle.disabled, a.pinkButtonSubtle.disabled:visited, a.pinkButtonSubtle[disabled], a.pinkButtonSubtle[disabled]:visited {
+  background-color: #eeeeee;
+  color: #aaaaaa;
+  border: solid 1px #bbbbbb;
+  border-top-color: #eeeeee;
+  border-left-color: #eeeeee;
+}
+.pinkButton.disabled:hover, .pinkButton.disabled:visited:hover, .pinkButton[disabled]:hover, .pinkButton[disabled]:visited:hover, a.pinkButton.disabled:hover, a.pinkButton.disabled:visited:hover, a.pinkButton[disabled]:hover, a.pinkButton[disabled]:visited:hover, .pinkButtonSubtle.disabled:hover, .pinkButtonSubtle.disabled:visited:hover, .pinkButtonSubtle[disabled]:hover, .pinkButtonSubtle[disabled]:visited:hover, a.pinkButtonSubtle.disabled:hover, a.pinkButtonSubtle.disabled:visited:hover, a.pinkButtonSubtle[disabled]:hover, a.pinkButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+
+.pinkButtonSubtle, a.pinkButtonSubtle, .pinkButtonSubtle:visited, a.pinkButtonSubtle:visited {
+  color: #8e6474;
+  background-color: transparent;
+  border-color: transparent;
+}
+.pinkButtonSubtle:active, a.pinkButtonSubtle:active, .pinkButtonSubtle:visited:active, a.pinkButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.appsThemeDark .pinkButton, .appsThemeDark a.pinkButton, .appsThemeDark .pinkButtonSubtle, .appsThemeDark a.pinkButtonSubtle {
+  background-color: #67062c;
+  border: solid 1px #500522;
+  border-top-color: #a00a45;
+  border-left-color: #a00a45;
+  color: #fbc0d7;
+}
+.appsThemeDark .pinkButton:hover, .appsThemeDark a.pinkButton:hover, .appsThemeDark .pinkButtonSubtle:hover, .appsThemeDark a.pinkButtonSubtle:hover {
+  background-color: #7d0836;
+  color: white;
+  text-decoration: none;
+}
+.appsThemeDark .pinkButton:active, .appsThemeDark a.pinkButton:active, .appsThemeDark .pinkButtonSubtle:active, .appsThemeDark a.pinkButtonSubtle:active {
+  background-color: #ab0b4a;
+  border-color: #500522;
+  color: white;
+}
+.appsThemeDark .pinkButton.disabled, .appsThemeDark .pinkButton.disabled:visited, .appsThemeDark .pinkButton[disabled], .appsThemeDark .pinkButton[disabled]:visited, .appsThemeDark a.pinkButton.disabled, .appsThemeDark a.pinkButton.disabled:visited, .appsThemeDark a.pinkButton[disabled], .appsThemeDark a.pinkButton[disabled]:visited, .appsThemeDark .pinkButtonSubtle.disabled, .appsThemeDark .pinkButtonSubtle.disabled:visited, .appsThemeDark .pinkButtonSubtle[disabled], .appsThemeDark .pinkButtonSubtle[disabled]:visited, .appsThemeDark a.pinkButtonSubtle.disabled, .appsThemeDark a.pinkButtonSubtle.disabled:visited, .appsThemeDark a.pinkButtonSubtle[disabled], .appsThemeDark a.pinkButtonSubtle[disabled]:visited {
+  background-color: #333333;
+  color: #bbbbbb;
+  border: solid 1px #222222;
+  border-top-color: #444444;
+  border-left-color: #444444;
+}
+.appsThemeDark .pinkButton.disabled:hover, .appsThemeDark .pinkButton.disabled:visited:hover, .appsThemeDark .pinkButton[disabled]:hover, .appsThemeDark .pinkButton[disabled]:visited:hover, .appsThemeDark a.pinkButton.disabled:hover, .appsThemeDark a.pinkButton.disabled:visited:hover, .appsThemeDark a.pinkButton[disabled]:hover, .appsThemeDark a.pinkButton[disabled]:visited:hover, .appsThemeDark .pinkButtonSubtle.disabled:hover, .appsThemeDark .pinkButtonSubtle.disabled:visited:hover, .appsThemeDark .pinkButtonSubtle[disabled]:hover, .appsThemeDark .pinkButtonSubtle[disabled]:visited:hover, .appsThemeDark a.pinkButtonSubtle.disabled:hover, .appsThemeDark a.pinkButtonSubtle.disabled:visited:hover, .appsThemeDark a.pinkButtonSubtle[disabled]:hover, .appsThemeDark a.pinkButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+.appsThemeDark .pinkButtonSubtle, .appsThemeDark a.pinkButtonSubtle, .appsThemeDark .pinkButtonSubtle:visited, .appsThemeDark a.pinkButtonSubtle:visited {
+  color: #8e6474;
+  background-color: transparent;
+  border-color: transparent;
+}
+.appsThemeDark .pinkButtonSubtle:active, .appsThemeDark a.pinkButtonSubtle:active, .appsThemeDark .pinkButtonSubtle:visited:active, .appsThemeDark a.pinkButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.purpleButton, a.purpleButton, .purpleButtonSubtle, a.purpleButtonSubtle {
+  text-decoration: none;
+  -webkit-appearance: none;
+  border: solid 1px #4a275c;
+  background-color: #b384cb;
+  border-top-color: #cdaddc;
+  border-left-color: #cdaddc;
+  color: #321a3d;
+  padding: 1px 3px 1px 3px;
+  border-radius: 3px;
+}
+.purpleButton:hover, a.purpleButton:hover, .purpleButtonSubtle:hover, a.purpleButtonSubtle:hover {
+  background-color: #cdaddc;
+  color: #190d1f;
+  text-decoration: none;
+}
+.purpleButton:active, a.purpleButton:active, .purpleButtonSubtle:active, a.purpleButtonSubtle:active {
+  background-color: #d9c2e5;
+  border-color: rgba(124, 65, 153, 0.2);
+}
+.purpleButton.disabled, .purpleButton.disabled:visited, .purpleButton[disabled], .purpleButton[disabled]:visited, a.purpleButton.disabled, a.purpleButton.disabled:visited, a.purpleButton[disabled], a.purpleButton[disabled]:visited, .purpleButtonSubtle.disabled, .purpleButtonSubtle.disabled:visited, .purpleButtonSubtle[disabled], .purpleButtonSubtle[disabled]:visited, a.purpleButtonSubtle.disabled, a.purpleButtonSubtle.disabled:visited, a.purpleButtonSubtle[disabled], a.purpleButtonSubtle[disabled]:visited {
+  background-color: #eeeeee;
+  color: #aaaaaa;
+  border: solid 1px #bbbbbb;
+  border-top-color: #eeeeee;
+  border-left-color: #eeeeee;
+}
+.purpleButton.disabled:hover, .purpleButton.disabled:visited:hover, .purpleButton[disabled]:hover, .purpleButton[disabled]:visited:hover, a.purpleButton.disabled:hover, a.purpleButton.disabled:visited:hover, a.purpleButton[disabled]:hover, a.purpleButton[disabled]:visited:hover, .purpleButtonSubtle.disabled:hover, .purpleButtonSubtle.disabled:visited:hover, .purpleButtonSubtle[disabled]:hover, .purpleButtonSubtle[disabled]:visited:hover, a.purpleButtonSubtle.disabled:hover, a.purpleButtonSubtle.disabled:visited:hover, a.purpleButtonSubtle[disabled]:hover, a.purpleButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+
+.purpleButtonSubtle, a.purpleButtonSubtle, .purpleButtonSubtle:visited, a.purpleButtonSubtle:visited {
+  color: #706476;
+  background-color: transparent;
+  border-color: transparent;
+}
+.purpleButtonSubtle:active, a.purpleButtonSubtle:active, .purpleButtonSubtle:visited:active, a.purpleButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.appsThemeDark .purpleButton, .appsThemeDark a.purpleButton, .appsThemeDark .purpleButtonSubtle, .appsThemeDark a.purpleButtonSubtle {
+  background-color: #381d45;
+  border: solid 1px #2b1736;
+  border-top-color: #572e6b;
+  border-left-color: #572e6b;
+  color: #e0cce9;
+}
+.appsThemeDark .purpleButton:hover, .appsThemeDark a.purpleButton:hover, .appsThemeDark .purpleButtonSubtle:hover, .appsThemeDark a.purpleButtonSubtle:hover {
+  background-color: #442454;
+  color: white;
+  text-decoration: none;
+}
+.appsThemeDark .purpleButton:active, .appsThemeDark a.purpleButton:active, .appsThemeDark .purpleButtonSubtle:active, .appsThemeDark a.purpleButtonSubtle:active {
+  background-color: #5d3173;
+  border-color: #2b1736;
+  color: white;
+}
+.appsThemeDark .purpleButton.disabled, .appsThemeDark .purpleButton.disabled:visited, .appsThemeDark .purpleButton[disabled], .appsThemeDark .purpleButton[disabled]:visited, .appsThemeDark a.purpleButton.disabled, .appsThemeDark a.purpleButton.disabled:visited, .appsThemeDark a.purpleButton[disabled], .appsThemeDark a.purpleButton[disabled]:visited, .appsThemeDark .purpleButtonSubtle.disabled, .appsThemeDark .purpleButtonSubtle.disabled:visited, .appsThemeDark .purpleButtonSubtle[disabled], .appsThemeDark .purpleButtonSubtle[disabled]:visited, .appsThemeDark a.purpleButtonSubtle.disabled, .appsThemeDark a.purpleButtonSubtle.disabled:visited, .appsThemeDark a.purpleButtonSubtle[disabled], .appsThemeDark a.purpleButtonSubtle[disabled]:visited {
+  background-color: #333333;
+  color: #bbbbbb;
+  border: solid 1px #222222;
+  border-top-color: #444444;
+  border-left-color: #444444;
+}
+.appsThemeDark .purpleButton.disabled:hover, .appsThemeDark .purpleButton.disabled:visited:hover, .appsThemeDark .purpleButton[disabled]:hover, .appsThemeDark .purpleButton[disabled]:visited:hover, .appsThemeDark a.purpleButton.disabled:hover, .appsThemeDark a.purpleButton.disabled:visited:hover, .appsThemeDark a.purpleButton[disabled]:hover, .appsThemeDark a.purpleButton[disabled]:visited:hover, .appsThemeDark .purpleButtonSubtle.disabled:hover, .appsThemeDark .purpleButtonSubtle.disabled:visited:hover, .appsThemeDark .purpleButtonSubtle[disabled]:hover, .appsThemeDark .purpleButtonSubtle[disabled]:visited:hover, .appsThemeDark a.purpleButtonSubtle.disabled:hover, .appsThemeDark a.purpleButtonSubtle.disabled:visited:hover, .appsThemeDark a.purpleButtonSubtle[disabled]:hover, .appsThemeDark a.purpleButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+.appsThemeDark .purpleButtonSubtle, .appsThemeDark a.purpleButtonSubtle, .appsThemeDark .purpleButtonSubtle:visited, .appsThemeDark a.purpleButtonSubtle:visited {
+  color: #706476;
+  background-color: transparent;
+  border-color: transparent;
+}
+.appsThemeDark .purpleButtonSubtle:active, .appsThemeDark a.purpleButtonSubtle:active, .appsThemeDark .purpleButtonSubtle:visited:active, .appsThemeDark a.purpleButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.greenButton, a.greenButton, .greenButtonSubtle, a.greenButtonSubtle {
+  text-decoration: none;
+  -webkit-appearance: none;
+  border: solid 1px #4a7527;
+  background-color: #b0da8e;
+  border-top-color: #cae6b4;
+  border-left-color: #cae6b4;
+  color: #314e1a;
+  padding: 1px 3px 1px 3px;
+  border-radius: 3px;
+}
+.greenButton:hover, a.greenButton:hover, .greenButtonSubtle:hover, a.greenButtonSubtle:hover {
+  background-color: #cae6b4;
+  color: #19270d;
+  text-decoration: none;
+}
+.greenButton:active, a.greenButton:active, .greenButtonSubtle:active, a.greenButtonSubtle:active {
+  background-color: #d7ecc7;
+  border-color: rgba(123, 193, 67, 0.2);
+}
+.greenButton.disabled, .greenButton.disabled:visited, .greenButton[disabled], .greenButton[disabled]:visited, a.greenButton.disabled, a.greenButton.disabled:visited, a.greenButton[disabled], a.greenButton[disabled]:visited, .greenButtonSubtle.disabled, .greenButtonSubtle.disabled:visited, .greenButtonSubtle[disabled], .greenButtonSubtle[disabled]:visited, a.greenButtonSubtle.disabled, a.greenButtonSubtle.disabled:visited, a.greenButtonSubtle[disabled], a.greenButtonSubtle[disabled]:visited {
+  background-color: #eeeeee;
+  color: #aaaaaa;
+  border: solid 1px #bbbbbb;
+  border-top-color: #eeeeee;
+  border-left-color: #eeeeee;
+}
+.greenButton.disabled:hover, .greenButton.disabled:visited:hover, .greenButton[disabled]:hover, .greenButton[disabled]:visited:hover, a.greenButton.disabled:hover, a.greenButton.disabled:visited:hover, a.greenButton[disabled]:hover, a.greenButton[disabled]:visited:hover, .greenButtonSubtle.disabled:hover, .greenButtonSubtle.disabled:visited:hover, .greenButtonSubtle[disabled]:hover, .greenButtonSubtle[disabled]:visited:hover, a.greenButtonSubtle.disabled:hover, a.greenButtonSubtle.disabled:visited:hover, a.greenButtonSubtle[disabled]:hover, a.greenButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+
+.greenButtonSubtle, a.greenButtonSubtle, .greenButtonSubtle:visited, a.greenButtonSubtle:visited {
+  color: #818f75;
+  background-color: transparent;
+  border-color: transparent;
+}
+.greenButtonSubtle:active, a.greenButtonSubtle:active, .greenButtonSubtle:visited:active, a.greenButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.appsThemeDark .greenButton, .appsThemeDark a.greenButton, .appsThemeDark .greenButtonSubtle, .appsThemeDark a.greenButtonSubtle {
+  background-color: #37581d;
+  border: solid 1px #2b4417;
+  border-top-color: #56892d;
+  border-left-color: #56892d;
+  color: #def0d0;
+}
+.appsThemeDark .greenButton:hover, .appsThemeDark a.greenButton:hover, .appsThemeDark .greenButtonSubtle:hover, .appsThemeDark a.greenButtonSubtle:hover {
+  background-color: #436c23;
+  color: white;
+  text-decoration: none;
+}
+.appsThemeDark .greenButton:active, .appsThemeDark a.greenButton:active, .appsThemeDark .greenButtonSubtle:active, .appsThemeDark a.greenButtonSubtle:active {
+  background-color: #5c9330;
+  border-color: #2b4417;
+  color: white;
+}
+.appsThemeDark .greenButton.disabled, .appsThemeDark .greenButton.disabled:visited, .appsThemeDark .greenButton[disabled], .appsThemeDark .greenButton[disabled]:visited, .appsThemeDark a.greenButton.disabled, .appsThemeDark a.greenButton.disabled:visited, .appsThemeDark a.greenButton[disabled], .appsThemeDark a.greenButton[disabled]:visited, .appsThemeDark .greenButtonSubtle.disabled, .appsThemeDark .greenButtonSubtle.disabled:visited, .appsThemeDark .greenButtonSubtle[disabled], .appsThemeDark .greenButtonSubtle[disabled]:visited, .appsThemeDark a.greenButtonSubtle.disabled, .appsThemeDark a.greenButtonSubtle.disabled:visited, .appsThemeDark a.greenButtonSubtle[disabled], .appsThemeDark a.greenButtonSubtle[disabled]:visited {
+  background-color: #333333;
+  color: #bbbbbb;
+  border: solid 1px #222222;
+  border-top-color: #444444;
+  border-left-color: #444444;
+}
+.appsThemeDark .greenButton.disabled:hover, .appsThemeDark .greenButton.disabled:visited:hover, .appsThemeDark .greenButton[disabled]:hover, .appsThemeDark .greenButton[disabled]:visited:hover, .appsThemeDark a.greenButton.disabled:hover, .appsThemeDark a.greenButton.disabled:visited:hover, .appsThemeDark a.greenButton[disabled]:hover, .appsThemeDark a.greenButton[disabled]:visited:hover, .appsThemeDark .greenButtonSubtle.disabled:hover, .appsThemeDark .greenButtonSubtle.disabled:visited:hover, .appsThemeDark .greenButtonSubtle[disabled]:hover, .appsThemeDark .greenButtonSubtle[disabled]:visited:hover, .appsThemeDark a.greenButtonSubtle.disabled:hover, .appsThemeDark a.greenButtonSubtle.disabled:visited:hover, .appsThemeDark a.greenButtonSubtle[disabled]:hover, .appsThemeDark a.greenButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+.appsThemeDark .greenButtonSubtle, .appsThemeDark a.greenButtonSubtle, .appsThemeDark .greenButtonSubtle:visited, .appsThemeDark a.greenButtonSubtle:visited {
+  color: #818f75;
+  background-color: transparent;
+  border-color: transparent;
+}
+.appsThemeDark .greenButtonSubtle:active, .appsThemeDark a.greenButtonSubtle:active, .appsThemeDark .greenButtonSubtle:visited:active, .appsThemeDark a.greenButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.yellowButton, a.yellowButton, .yellowButtonSubtle, a.yellowButtonSubtle {
+  text-decoration: none;
+  -webkit-appearance: none;
+  border: solid 1px #b37a02;
+  background-color: #fed683;
+  border-top-color: #fee4ac;
+  border-left-color: #fee4ac;
+  color: #775101;
+  padding: 1px 3px 1px 3px;
+  border-radius: 3px;
+}
+.yellowButton:hover, a.yellowButton:hover, .yellowButtonSubtle:hover, a.yellowButtonSubtle:hover {
+  background-color: #fee4ac;
+  color: #3c2901;
+  text-decoration: none;
+}
+.yellowButton:active, a.yellowButton:active, .yellowButtonSubtle:active, a.yellowButtonSubtle:active {
+  background-color: #feebc1;
+  border-color: rgba(253, 187, 48, 0.2);
+}
+.yellowButton.disabled, .yellowButton.disabled:visited, .yellowButton[disabled], .yellowButton[disabled]:visited, a.yellowButton.disabled, a.yellowButton.disabled:visited, a.yellowButton[disabled], a.yellowButton[disabled]:visited, .yellowButtonSubtle.disabled, .yellowButtonSubtle.disabled:visited, .yellowButtonSubtle[disabled], .yellowButtonSubtle[disabled]:visited, a.yellowButtonSubtle.disabled, a.yellowButtonSubtle.disabled:visited, a.yellowButtonSubtle[disabled], a.yellowButtonSubtle[disabled]:visited {
+  background-color: #eeeeee;
+  color: #aaaaaa;
+  border: solid 1px #bbbbbb;
+  border-top-color: #eeeeee;
+  border-left-color: #eeeeee;
+}
+.yellowButton.disabled:hover, .yellowButton.disabled:visited:hover, .yellowButton[disabled]:hover, .yellowButton[disabled]:visited:hover, a.yellowButton.disabled:hover, a.yellowButton.disabled:visited:hover, a.yellowButton[disabled]:hover, a.yellowButton[disabled]:visited:hover, .yellowButtonSubtle.disabled:hover, .yellowButtonSubtle.disabled:visited:hover, .yellowButtonSubtle[disabled]:hover, .yellowButtonSubtle[disabled]:visited:hover, a.yellowButtonSubtle.disabled:hover, a.yellowButtonSubtle.disabled:visited:hover, a.yellowButtonSubtle[disabled]:hover, a.yellowButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+
+.yellowButtonSubtle, a.yellowButtonSubtle, .yellowButtonSubtle:visited, a.yellowButtonSubtle:visited {
+  color: #ab9e82;
+  background-color: transparent;
+  border-color: transparent;
+}
+.yellowButtonSubtle:active, a.yellowButtonSubtle:active, .yellowButtonSubtle:visited:active, a.yellowButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.appsThemeDark .yellowButton, .appsThemeDark a.yellowButton, .appsThemeDark .yellowButtonSubtle, .appsThemeDark a.yellowButtonSubtle {
+  background-color: #865b01;
+  border: solid 1px #684701;
+  border-top-color: #d18e02;
+  border-left-color: #d18e02;
+  color: #ffeecb;
+}
+.appsThemeDark .yellowButton:hover, .appsThemeDark a.yellowButton:hover, .appsThemeDark .yellowButtonSubtle:hover, .appsThemeDark a.yellowButtonSubtle:hover {
+  background-color: #a47002;
+  color: white;
+  text-decoration: none;
+}
+.appsThemeDark .yellowButton:active, .appsThemeDark a.yellowButton:active, .appsThemeDark .yellowButtonSubtle:active, .appsThemeDark a.yellowButtonSubtle:active {
+  background-color: #e09802;
+  border-color: #684701;
+  color: white;
+}
+.appsThemeDark .yellowButton.disabled, .appsThemeDark .yellowButton.disabled:visited, .appsThemeDark .yellowButton[disabled], .appsThemeDark .yellowButton[disabled]:visited, .appsThemeDark a.yellowButton.disabled, .appsThemeDark a.yellowButton.disabled:visited, .appsThemeDark a.yellowButton[disabled], .appsThemeDark a.yellowButton[disabled]:visited, .appsThemeDark .yellowButtonSubtle.disabled, .appsThemeDark .yellowButtonSubtle.disabled:visited, .appsThemeDark .yellowButtonSubtle[disabled], .appsThemeDark .yellowButtonSubtle[disabled]:visited, .appsThemeDark a.yellowButtonSubtle.disabled, .appsThemeDark a.yellowButtonSubtle.disabled:visited, .appsThemeDark a.yellowButtonSubtle[disabled], .appsThemeDark a.yellowButtonSubtle[disabled]:visited {
+  background-color: #333333;
+  color: #bbbbbb;
+  border: solid 1px #222222;
+  border-top-color: #444444;
+  border-left-color: #444444;
+}
+.appsThemeDark .yellowButton.disabled:hover, .appsThemeDark .yellowButton.disabled:visited:hover, .appsThemeDark .yellowButton[disabled]:hover, .appsThemeDark .yellowButton[disabled]:visited:hover, .appsThemeDark a.yellowButton.disabled:hover, .appsThemeDark a.yellowButton.disabled:visited:hover, .appsThemeDark a.yellowButton[disabled]:hover, .appsThemeDark a.yellowButton[disabled]:visited:hover, .appsThemeDark .yellowButtonSubtle.disabled:hover, .appsThemeDark .yellowButtonSubtle.disabled:visited:hover, .appsThemeDark .yellowButtonSubtle[disabled]:hover, .appsThemeDark .yellowButtonSubtle[disabled]:visited:hover, .appsThemeDark a.yellowButtonSubtle.disabled:hover, .appsThemeDark a.yellowButtonSubtle.disabled:visited:hover, .appsThemeDark a.yellowButtonSubtle[disabled]:hover, .appsThemeDark a.yellowButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+.appsThemeDark .yellowButtonSubtle, .appsThemeDark a.yellowButtonSubtle, .appsThemeDark .yellowButtonSubtle:visited, .appsThemeDark a.yellowButtonSubtle:visited {
+  color: #ab9e82;
+  background-color: transparent;
+  border-color: transparent;
+}
+.appsThemeDark .yellowButtonSubtle:active, .appsThemeDark a.yellowButtonSubtle:active, .appsThemeDark .yellowButtonSubtle:visited:active, .appsThemeDark a.yellowButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.blueButton, a.blueButton, .blueButtonSubtle, a.blueButtonSubtle {
+  text-decoration: none;
+  -webkit-appearance: none;
+  border: solid 1px #005e84;
+  background-color: #51cdff;
+  border-top-color: #8bdeff;
+  border-left-color: #8bdeff;
+  color: #003f58;
+  padding: 1px 3px 1px 3px;
+  border-radius: 3px;
+}
+.blueButton:hover, a.blueButton:hover, .blueButtonSubtle:hover, a.blueButtonSubtle:hover {
+  background-color: #8bdeff;
+  color: #001f2c;
+  text-decoration: none;
+}
+.blueButton:active, a.blueButton:active, .blueButtonSubtle:active, a.blueButtonSubtle:active {
+  background-color: #a8e6ff;
+  border-color: rgba(0, 157, 220, 0.2);
+}
+.blueButton.disabled, .blueButton.disabled:visited, .blueButton[disabled], .blueButton[disabled]:visited, a.blueButton.disabled, a.blueButton.disabled:visited, a.blueButton[disabled], a.blueButton[disabled]:visited, .blueButtonSubtle.disabled, .blueButtonSubtle.disabled:visited, .blueButtonSubtle[disabled], .blueButtonSubtle[disabled]:visited, a.blueButtonSubtle.disabled, a.blueButtonSubtle.disabled:visited, a.blueButtonSubtle[disabled], a.blueButtonSubtle[disabled]:visited {
+  background-color: #eeeeee;
+  color: #aaaaaa;
+  border: solid 1px #bbbbbb;
+  border-top-color: #eeeeee;
+  border-left-color: #eeeeee;
+}
+.blueButton.disabled:hover, .blueButton.disabled:visited:hover, .blueButton[disabled]:hover, .blueButton[disabled]:visited:hover, a.blueButton.disabled:hover, a.blueButton.disabled:visited:hover, a.blueButton[disabled]:hover, a.blueButton[disabled]:visited:hover, .blueButtonSubtle.disabled:hover, .blueButtonSubtle.disabled:visited:hover, .blueButtonSubtle[disabled]:hover, .blueButtonSubtle[disabled]:visited:hover, a.blueButtonSubtle.disabled:hover, a.blueButtonSubtle.disabled:visited:hover, a.blueButtonSubtle[disabled]:hover, a.blueButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+
+.blueButtonSubtle, a.blueButtonSubtle, .blueButtonSubtle:visited, a.blueButtonSubtle:visited {
+  color: #587784;
+  background-color: transparent;
+  border-color: transparent;
+}
+.blueButtonSubtle:active, a.blueButtonSubtle:active, .blueButtonSubtle:visited:active, a.blueButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.appsThemeDark .blueButton, .appsThemeDark a.blueButton, .appsThemeDark .blueButtonSubtle, .appsThemeDark a.blueButtonSubtle {
+  background-color: #004763;
+  border: solid 1px #00374d;
+  border-top-color: #006e9a;
+  border-left-color: #006e9a;
+  color: #b7eaff;
+}
+.appsThemeDark .blueButton:hover, .appsThemeDark a.blueButton:hover, .appsThemeDark .blueButtonSubtle:hover, .appsThemeDark a.blueButtonSubtle:hover {
+  background-color: #005679;
+  color: white;
+  text-decoration: none;
+}
+.appsThemeDark .blueButton:active, .appsThemeDark a.blueButton:active, .appsThemeDark .blueButtonSubtle:active, .appsThemeDark a.blueButtonSubtle:active {
+  background-color: #0076a5;
+  border-color: #00374d;
+  color: white;
+}
+.appsThemeDark .blueButton.disabled, .appsThemeDark .blueButton.disabled:visited, .appsThemeDark .blueButton[disabled], .appsThemeDark .blueButton[disabled]:visited, .appsThemeDark a.blueButton.disabled, .appsThemeDark a.blueButton.disabled:visited, .appsThemeDark a.blueButton[disabled], .appsThemeDark a.blueButton[disabled]:visited, .appsThemeDark .blueButtonSubtle.disabled, .appsThemeDark .blueButtonSubtle.disabled:visited, .appsThemeDark .blueButtonSubtle[disabled], .appsThemeDark .blueButtonSubtle[disabled]:visited, .appsThemeDark a.blueButtonSubtle.disabled, .appsThemeDark a.blueButtonSubtle.disabled:visited, .appsThemeDark a.blueButtonSubtle[disabled], .appsThemeDark a.blueButtonSubtle[disabled]:visited {
+  background-color: #333333;
+  color: #bbbbbb;
+  border: solid 1px #222222;
+  border-top-color: #444444;
+  border-left-color: #444444;
+}
+.appsThemeDark .blueButton.disabled:hover, .appsThemeDark .blueButton.disabled:visited:hover, .appsThemeDark .blueButton[disabled]:hover, .appsThemeDark .blueButton[disabled]:visited:hover, .appsThemeDark a.blueButton.disabled:hover, .appsThemeDark a.blueButton.disabled:visited:hover, .appsThemeDark a.blueButton[disabled]:hover, .appsThemeDark a.blueButton[disabled]:visited:hover, .appsThemeDark .blueButtonSubtle.disabled:hover, .appsThemeDark .blueButtonSubtle.disabled:visited:hover, .appsThemeDark .blueButtonSubtle[disabled]:hover, .appsThemeDark .blueButtonSubtle[disabled]:visited:hover, .appsThemeDark a.blueButtonSubtle.disabled:hover, .appsThemeDark a.blueButtonSubtle.disabled:visited:hover, .appsThemeDark a.blueButtonSubtle[disabled]:hover, .appsThemeDark a.blueButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+.appsThemeDark .blueButtonSubtle, .appsThemeDark a.blueButtonSubtle, .appsThemeDark .blueButtonSubtle:visited, .appsThemeDark a.blueButtonSubtle:visited {
+  color: #587784;
+  background-color: transparent;
+  border-color: transparent;
+}
+.appsThemeDark .blueButtonSubtle:active, .appsThemeDark a.blueButtonSubtle:active, .appsThemeDark .blueButtonSubtle:visited:active, .appsThemeDark a.blueButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.grayButton, a.grayButton, .grayButtonSubtle, a.grayButtonSubtle {
+  text-decoration: none;
+  -webkit-appearance: none;
+  border: solid 1px #707070;
+  background-color: #d6d6d6;
+  border-top-color: #e4e4e4;
+  border-left-color: #e4e4e4;
+  color: #4b4b4b;
+  padding: 1px 3px 1px 3px;
+  border-radius: 3px;
+}
+.grayButton:hover, a.grayButton:hover, .grayButtonSubtle:hover, a.grayButtonSubtle:hover {
+  background-color: #e4e4e4;
+  color: #252525;
+  text-decoration: none;
+}
+.grayButton:active, a.grayButton:active, .grayButtonSubtle:active, a.grayButtonSubtle:active {
+  background-color: #ebebeb;
+  border-color: rgba(187, 187, 187, 0.2);
+}
+.grayButton.disabled, .grayButton.disabled:visited, .grayButton[disabled], .grayButton[disabled]:visited, a.grayButton.disabled, a.grayButton.disabled:visited, a.grayButton[disabled], a.grayButton[disabled]:visited, .grayButtonSubtle.disabled, .grayButtonSubtle.disabled:visited, .grayButtonSubtle[disabled], .grayButtonSubtle[disabled]:visited, a.grayButtonSubtle.disabled, a.grayButtonSubtle.disabled:visited, a.grayButtonSubtle[disabled], a.grayButtonSubtle[disabled]:visited {
+  background-color: #eeeeee;
+  color: #aaaaaa;
+  border: solid 1px #bbbbbb;
+  border-top-color: #eeeeee;
+  border-left-color: #eeeeee;
+}
+.grayButton.disabled:hover, .grayButton.disabled:visited:hover, .grayButton[disabled]:hover, .grayButton[disabled]:visited:hover, a.grayButton.disabled:hover, a.grayButton.disabled:visited:hover, a.grayButton[disabled]:hover, a.grayButton[disabled]:visited:hover, .grayButtonSubtle.disabled:hover, .grayButtonSubtle.disabled:visited:hover, .grayButtonSubtle[disabled]:hover, .grayButtonSubtle[disabled]:visited:hover, a.grayButtonSubtle.disabled:hover, a.grayButtonSubtle.disabled:visited:hover, a.grayButtonSubtle[disabled]:hover, a.grayButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+
+.grayButtonSubtle, a.grayButtonSubtle, .grayButtonSubtle:visited, a.grayButtonSubtle:visited {
+  color: #bbbbbb;
+  background-color: transparent;
+  border-color: transparent;
+}
+.grayButtonSubtle:active, a.grayButtonSubtle:active, .grayButtonSubtle:visited:active, a.grayButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.appsThemeDark .grayButton, .appsThemeDark a.grayButton, .appsThemeDark .grayButtonSubtle, .appsThemeDark a.grayButtonSubtle {
+  background-color: #545454;
+  border: solid 1px #414141;
+  border-top-color: #838383;
+  border-left-color: #838383;
+  color: #eeeeee;
+}
+.appsThemeDark .grayButton:hover, .appsThemeDark a.grayButton:hover, .appsThemeDark .grayButtonSubtle:hover, .appsThemeDark a.grayButtonSubtle:hover {
+  background-color: #676767;
+  color: white;
+  text-decoration: none;
+}
+.appsThemeDark .grayButton:active, .appsThemeDark a.grayButton:active, .appsThemeDark .grayButtonSubtle:active, .appsThemeDark a.grayButtonSubtle:active {
+  background-color: #8c8c8c;
+  border-color: #414141;
+  color: white;
+}
+.appsThemeDark .grayButton.disabled, .appsThemeDark .grayButton.disabled:visited, .appsThemeDark .grayButton[disabled], .appsThemeDark .grayButton[disabled]:visited, .appsThemeDark a.grayButton.disabled, .appsThemeDark a.grayButton.disabled:visited, .appsThemeDark a.grayButton[disabled], .appsThemeDark a.grayButton[disabled]:visited, .appsThemeDark .grayButtonSubtle.disabled, .appsThemeDark .grayButtonSubtle.disabled:visited, .appsThemeDark .grayButtonSubtle[disabled], .appsThemeDark .grayButtonSubtle[disabled]:visited, .appsThemeDark a.grayButtonSubtle.disabled, .appsThemeDark a.grayButtonSubtle.disabled:visited, .appsThemeDark a.grayButtonSubtle[disabled], .appsThemeDark a.grayButtonSubtle[disabled]:visited {
+  background-color: #333333;
+  color: #bbbbbb;
+  border: solid 1px #222222;
+  border-top-color: #444444;
+  border-left-color: #444444;
+}
+.appsThemeDark .grayButton.disabled:hover, .appsThemeDark .grayButton.disabled:visited:hover, .appsThemeDark .grayButton[disabled]:hover, .appsThemeDark .grayButton[disabled]:visited:hover, .appsThemeDark a.grayButton.disabled:hover, .appsThemeDark a.grayButton.disabled:visited:hover, .appsThemeDark a.grayButton[disabled]:hover, .appsThemeDark a.grayButton[disabled]:visited:hover, .appsThemeDark .grayButtonSubtle.disabled:hover, .appsThemeDark .grayButtonSubtle.disabled:visited:hover, .appsThemeDark .grayButtonSubtle[disabled]:hover, .appsThemeDark .grayButtonSubtle[disabled]:visited:hover, .appsThemeDark a.grayButtonSubtle.disabled:hover, .appsThemeDark a.grayButtonSubtle.disabled:visited:hover, .appsThemeDark a.grayButtonSubtle[disabled]:hover, .appsThemeDark a.grayButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+.appsThemeDark .grayButtonSubtle, .appsThemeDark a.grayButtonSubtle, .appsThemeDark .grayButtonSubtle:visited, .appsThemeDark a.grayButtonSubtle:visited {
+  color: #bbbbbb;
+  background-color: transparent;
+  border-color: transparent;
+}
+.appsThemeDark .grayButtonSubtle:active, .appsThemeDark a.grayButtonSubtle:active, .appsThemeDark .grayButtonSubtle:visited:active, .appsThemeDark a.grayButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.grayButton.active, .grayButton.active {
+  background-color: #fafafa;
+  border-color: #c8c8c8;
+  color: black;
+  pointer-events: none;
+}
+
+.appsThemeDark .grayButton.active, .appsThemeDark .grayButton.active {
+  background-color: #c8c8c8;
+  border-color: #969696;
+  color: black;
+  pointer-events: none;
+}
+
+/* page selection buttons for filterForms */
+.pager {
+  margin: 10px;
+}
+.pager a, .pager > i {
+  display: inline-block;
+  min-width: 25px;
+  text-align: center;
+  margin: 3px;
+}
+.pager aa:first-of-type, .pager > ia:first-of-type {
+  margin-left: 0;
+}
+.pager aa:last-of-type, .pager > ia:last-of-type {
+  margin-right: 0;
+}
+
+i.secondarySort, span.secondarySort {
+  opacity: 0.4;
+}
+
+.redButton, a.redButton, .redButtonSubtle, a.redButtonSubtle {
+  text-decoration: none;
+  -webkit-appearance: none;
+  border: solid 1px #ad0000;
+  background-color: #ff7a7a;
+  border-top-color: #ffa7a7;
+  border-left-color: #ffa7a7;
+  color: #740000;
+  padding: 1px 3px 1px 3px;
+  border-radius: 3px;
+}
+.redButton:hover, a.redButton:hover, .redButtonSubtle:hover, a.redButtonSubtle:hover {
+  background-color: #ffa7a7;
+  color: #3a0000;
+  text-decoration: none;
+}
+.redButton:active, a.redButton:active, .redButtonSubtle:active, a.redButtonSubtle:active {
+  background-color: #ffbdbd;
+  border-color: rgba(255, 34, 34, 0.2);
+}
+.redButton.disabled, .redButton.disabled:visited, .redButton[disabled], .redButton[disabled]:visited, a.redButton.disabled, a.redButton.disabled:visited, a.redButton[disabled], a.redButton[disabled]:visited, .redButtonSubtle.disabled, .redButtonSubtle.disabled:visited, .redButtonSubtle[disabled], .redButtonSubtle[disabled]:visited, a.redButtonSubtle.disabled, a.redButtonSubtle.disabled:visited, a.redButtonSubtle[disabled], a.redButtonSubtle[disabled]:visited {
+  background-color: #eeeeee;
+  color: #aaaaaa;
+  border: solid 1px #bbbbbb;
+  border-top-color: #eeeeee;
+  border-left-color: #eeeeee;
+}
+.redButton.disabled:hover, .redButton.disabled:visited:hover, .redButton[disabled]:hover, .redButton[disabled]:visited:hover, a.redButton.disabled:hover, a.redButton.disabled:visited:hover, a.redButton[disabled]:hover, a.redButton[disabled]:visited:hover, .redButtonSubtle.disabled:hover, .redButtonSubtle.disabled:visited:hover, .redButtonSubtle[disabled]:hover, .redButtonSubtle[disabled]:visited:hover, a.redButtonSubtle.disabled:hover, a.redButtonSubtle.disabled:visited:hover, a.redButtonSubtle[disabled]:hover, a.redButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+
+.redButtonSubtle, a.redButtonSubtle, .redButtonSubtle:visited, a.redButtonSubtle:visited {
+  color: #a77a7a;
+  background-color: transparent;
+  border-color: transparent;
+}
+.redButtonSubtle:active, a.redButtonSubtle:active, .redButtonSubtle:visited:active, a.redButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.appsThemeDark .redButton, .appsThemeDark a.redButton, .appsThemeDark .redButtonSubtle, .appsThemeDark a.redButtonSubtle {
+  background-color: #820000;
+  border: solid 1px #650000;
+  border-top-color: #ca0000;
+  border-left-color: #ca0000;
+  color: #ffc8c8;
+}
+.appsThemeDark .redButton:hover, .appsThemeDark a.redButton:hover, .appsThemeDark .redButtonSubtle:hover, .appsThemeDark a.redButtonSubtle:hover {
+  background-color: #9f0000;
+  color: white;
+  text-decoration: none;
+}
+.appsThemeDark .redButton:active, .appsThemeDark a.redButton:active, .appsThemeDark .redButtonSubtle:active, .appsThemeDark a.redButtonSubtle:active {
+  background-color: #d90000;
+  border-color: #650000;
+  color: white;
+}
+.appsThemeDark .redButton.disabled, .appsThemeDark .redButton.disabled:visited, .appsThemeDark .redButton[disabled], .appsThemeDark .redButton[disabled]:visited, .appsThemeDark a.redButton.disabled, .appsThemeDark a.redButton.disabled:visited, .appsThemeDark a.redButton[disabled], .appsThemeDark a.redButton[disabled]:visited, .appsThemeDark .redButtonSubtle.disabled, .appsThemeDark .redButtonSubtle.disabled:visited, .appsThemeDark .redButtonSubtle[disabled], .appsThemeDark .redButtonSubtle[disabled]:visited, .appsThemeDark a.redButtonSubtle.disabled, .appsThemeDark a.redButtonSubtle.disabled:visited, .appsThemeDark a.redButtonSubtle[disabled], .appsThemeDark a.redButtonSubtle[disabled]:visited {
+  background-color: #333333;
+  color: #bbbbbb;
+  border: solid 1px #222222;
+  border-top-color: #444444;
+  border-left-color: #444444;
+}
+.appsThemeDark .redButton.disabled:hover, .appsThemeDark .redButton.disabled:visited:hover, .appsThemeDark .redButton[disabled]:hover, .appsThemeDark .redButton[disabled]:visited:hover, .appsThemeDark a.redButton.disabled:hover, .appsThemeDark a.redButton.disabled:visited:hover, .appsThemeDark a.redButton[disabled]:hover, .appsThemeDark a.redButton[disabled]:visited:hover, .appsThemeDark .redButtonSubtle.disabled:hover, .appsThemeDark .redButtonSubtle.disabled:visited:hover, .appsThemeDark .redButtonSubtle[disabled]:hover, .appsThemeDark .redButtonSubtle[disabled]:visited:hover, .appsThemeDark a.redButtonSubtle.disabled:hover, .appsThemeDark a.redButtonSubtle.disabled:visited:hover, .appsThemeDark a.redButtonSubtle[disabled]:hover, .appsThemeDark a.redButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+.appsThemeDark .redButtonSubtle, .appsThemeDark a.redButtonSubtle, .appsThemeDark .redButtonSubtle:visited, .appsThemeDark a.redButtonSubtle:visited {
+  color: #a77a7a;
+  background-color: transparent;
+  border-color: transparent;
+}
+.appsThemeDark .redButtonSubtle:active, .appsThemeDark a.redButtonSubtle:active, .appsThemeDark .redButtonSubtle:visited:active, .appsThemeDark a.redButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.orangeButton, a.orangeButton, .orangeButtonSubtle, a.orangeButtonSubtle {
+  text-decoration: none;
+  -webkit-appearance: none;
+  border: solid 1px #ae4c00;
+  background-color: #ffb57b;
+  border-top-color: #ffcda7;
+  border-left-color: #ffcda7;
+  color: #743300;
+  padding: 1px 3px 1px 3px;
+  border-radius: 3px;
+}
+.orangeButton:hover, a.orangeButton:hover, .orangeButtonSubtle:hover, a.orangeButtonSubtle:hover {
+  background-color: #ffcda7;
+  color: #3a1900;
+  text-decoration: none;
+}
+.orangeButton:active, a.orangeButton:active, .orangeButtonSubtle:active, a.orangeButtonSubtle:active {
+  background-color: #ffdabd;
+  border-color: rgba(255, 131, 35, 0.2);
+}
+.orangeButton.disabled, .orangeButton.disabled:visited, .orangeButton[disabled], .orangeButton[disabled]:visited, a.orangeButton.disabled, a.orangeButton.disabled:visited, a.orangeButton[disabled], a.orangeButton[disabled]:visited, .orangeButtonSubtle.disabled, .orangeButtonSubtle.disabled:visited, .orangeButtonSubtle[disabled], .orangeButtonSubtle[disabled]:visited, a.orangeButtonSubtle.disabled, a.orangeButtonSubtle.disabled:visited, a.orangeButtonSubtle[disabled], a.orangeButtonSubtle[disabled]:visited {
+  background-color: #eeeeee;
+  color: #aaaaaa;
+  border: solid 1px #bbbbbb;
+  border-top-color: #eeeeee;
+  border-left-color: #eeeeee;
+}
+.orangeButton.disabled:hover, .orangeButton.disabled:visited:hover, .orangeButton[disabled]:hover, .orangeButton[disabled]:visited:hover, a.orangeButton.disabled:hover, a.orangeButton.disabled:visited:hover, a.orangeButton[disabled]:hover, a.orangeButton[disabled]:visited:hover, .orangeButtonSubtle.disabled:hover, .orangeButtonSubtle.disabled:visited:hover, .orangeButtonSubtle[disabled]:hover, .orangeButtonSubtle[disabled]:visited:hover, a.orangeButtonSubtle.disabled:hover, a.orangeButtonSubtle.disabled:visited:hover, a.orangeButtonSubtle[disabled]:hover, a.orangeButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+
+.orangeButtonSubtle, a.orangeButtonSubtle, .orangeButtonSubtle:visited, a.orangeButtonSubtle:visited {
+  color: #a78e7b;
+  background-color: transparent;
+  border-color: transparent;
+}
+.orangeButtonSubtle:active, a.orangeButtonSubtle:active, .orangeButtonSubtle:visited:active, a.orangeButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.appsThemeDark .orangeButton, .appsThemeDark a.orangeButton, .appsThemeDark .orangeButtonSubtle, .appsThemeDark a.orangeButtonSubtle {
+  background-color: #833900;
+  border: solid 1px #662c00;
+  border-top-color: #cb5900;
+  border-left-color: #cb5900;
+  color: #ffe0c8;
+}
+.appsThemeDark .orangeButton:hover, .appsThemeDark a.orangeButton:hover, .appsThemeDark .orangeButtonSubtle:hover, .appsThemeDark a.orangeButtonSubtle:hover {
+  background-color: #a04600;
+  color: white;
+  text-decoration: none;
+}
+.appsThemeDark .orangeButton:active, .appsThemeDark a.orangeButton:active, .appsThemeDark .orangeButtonSubtle:active, .appsThemeDark a.orangeButtonSubtle:active {
+  background-color: #da5f00;
+  border-color: #662c00;
+  color: white;
+}
+.appsThemeDark .orangeButton.disabled, .appsThemeDark .orangeButton.disabled:visited, .appsThemeDark .orangeButton[disabled], .appsThemeDark .orangeButton[disabled]:visited, .appsThemeDark a.orangeButton.disabled, .appsThemeDark a.orangeButton.disabled:visited, .appsThemeDark a.orangeButton[disabled], .appsThemeDark a.orangeButton[disabled]:visited, .appsThemeDark .orangeButtonSubtle.disabled, .appsThemeDark .orangeButtonSubtle.disabled:visited, .appsThemeDark .orangeButtonSubtle[disabled], .appsThemeDark .orangeButtonSubtle[disabled]:visited, .appsThemeDark a.orangeButtonSubtle.disabled, .appsThemeDark a.orangeButtonSubtle.disabled:visited, .appsThemeDark a.orangeButtonSubtle[disabled], .appsThemeDark a.orangeButtonSubtle[disabled]:visited {
+  background-color: #333333;
+  color: #bbbbbb;
+  border: solid 1px #222222;
+  border-top-color: #444444;
+  border-left-color: #444444;
+}
+.appsThemeDark .orangeButton.disabled:hover, .appsThemeDark .orangeButton.disabled:visited:hover, .appsThemeDark .orangeButton[disabled]:hover, .appsThemeDark .orangeButton[disabled]:visited:hover, .appsThemeDark a.orangeButton.disabled:hover, .appsThemeDark a.orangeButton.disabled:visited:hover, .appsThemeDark a.orangeButton[disabled]:hover, .appsThemeDark a.orangeButton[disabled]:visited:hover, .appsThemeDark .orangeButtonSubtle.disabled:hover, .appsThemeDark .orangeButtonSubtle.disabled:visited:hover, .appsThemeDark .orangeButtonSubtle[disabled]:hover, .appsThemeDark .orangeButtonSubtle[disabled]:visited:hover, .appsThemeDark a.orangeButtonSubtle.disabled:hover, .appsThemeDark a.orangeButtonSubtle.disabled:visited:hover, .appsThemeDark a.orangeButtonSubtle[disabled]:hover, .appsThemeDark a.orangeButtonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+.appsThemeDark .orangeButtonSubtle, .appsThemeDark a.orangeButtonSubtle, .appsThemeDark .orangeButtonSubtle:visited, .appsThemeDark a.orangeButtonSubtle:visited {
+  color: #a78e7b;
+  background-color: transparent;
+  border-color: transparent;
+}
+.appsThemeDark .orangeButtonSubtle:active, .appsThemeDark a.orangeButtonSubtle:active, .appsThemeDark .orangeButtonSubtle:visited:active, .appsThemeDark a.orangeButtonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.delete, a.delete, .deleteSubtle, a.deleteSubtle {
+  text-decoration: none;
+  -webkit-appearance: none;
+  border: solid 1px #e00000;
+  background-color: #ffadad;
+  border-top-color: #ffc9c9;
+  border-left-color: #ffc9c9;
+  color: #960000;
+  padding: 1px 3px 1px 3px;
+  border-radius: 3px;
+}
+.delete:hover, a.delete:hover, .deleteSubtle:hover, a.deleteSubtle:hover {
+  background-color: #ffc9c9;
+  color: #4b0000;
+  text-decoration: none;
+}
+.delete:active, a.delete:active, .deleteSubtle:active, a.deleteSubtle:active {
+  background-color: #ffd6d6;
+  border-color: rgba(255, 119, 119, 0.2);
+}
+.delete.disabled, .delete.disabled:visited, .delete[disabled], .delete[disabled]:visited, a.delete.disabled, a.delete.disabled:visited, a.delete[disabled], a.delete[disabled]:visited, .deleteSubtle.disabled, .deleteSubtle.disabled:visited, .deleteSubtle[disabled], .deleteSubtle[disabled]:visited, a.deleteSubtle.disabled, a.deleteSubtle.disabled:visited, a.deleteSubtle[disabled], a.deleteSubtle[disabled]:visited {
+  background-color: #eeeeee;
+  color: #aaaaaa;
+  border: solid 1px #bbbbbb;
+  border-top-color: #eeeeee;
+  border-left-color: #eeeeee;
+}
+.delete.disabled:hover, .delete.disabled:visited:hover, .delete[disabled]:hover, .delete[disabled]:visited:hover, a.delete.disabled:hover, a.delete.disabled:visited:hover, a.delete[disabled]:hover, a.delete[disabled]:visited:hover, .deleteSubtle.disabled:hover, .deleteSubtle.disabled:visited:hover, .deleteSubtle[disabled]:hover, .deleteSubtle[disabled]:visited:hover, a.deleteSubtle.disabled:hover, a.deleteSubtle.disabled:visited:hover, a.deleteSubtle[disabled]:hover, a.deleteSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+
+.deleteSubtle, a.deleteSubtle, .deleteSubtle:visited, a.deleteSubtle:visited {
+  color: #c9adad;
+  background-color: transparent;
+  border-color: transparent;
+}
+.deleteSubtle:active, a.deleteSubtle:active, .deleteSubtle:visited:active, a.deleteSubtle:visited:active {
+  border-color: transparent;
+}
+
+.appsThemeDark .delete, .appsThemeDark a.delete, .appsThemeDark .deleteSubtle, .appsThemeDark a.deleteSubtle {
+  background-color: #a80000;
+  border: solid 1px #830000;
+  border-top-color: #ff0707;
+  border-left-color: #ff0707;
+  color: #ffdddd;
+}
+.appsThemeDark .delete:hover, .appsThemeDark a.delete:hover, .appsThemeDark .deleteSubtle:hover, .appsThemeDark a.deleteSubtle:hover {
+  background-color: #ce0000;
+  color: white;
+  text-decoration: none;
+}
+.appsThemeDark .delete:active, .appsThemeDark a.delete:active, .appsThemeDark .deleteSubtle:active, .appsThemeDark a.deleteSubtle:active {
+  background-color: #ff1a1a;
+  border-color: #830000;
+  color: white;
+}
+.appsThemeDark .delete.disabled, .appsThemeDark .delete.disabled:visited, .appsThemeDark .delete[disabled], .appsThemeDark .delete[disabled]:visited, .appsThemeDark a.delete.disabled, .appsThemeDark a.delete.disabled:visited, .appsThemeDark a.delete[disabled], .appsThemeDark a.delete[disabled]:visited, .appsThemeDark .deleteSubtle.disabled, .appsThemeDark .deleteSubtle.disabled:visited, .appsThemeDark .deleteSubtle[disabled], .appsThemeDark .deleteSubtle[disabled]:visited, .appsThemeDark a.deleteSubtle.disabled, .appsThemeDark a.deleteSubtle.disabled:visited, .appsThemeDark a.deleteSubtle[disabled], .appsThemeDark a.deleteSubtle[disabled]:visited {
+  background-color: #333333;
+  color: #bbbbbb;
+  border: solid 1px #222222;
+  border-top-color: #444444;
+  border-left-color: #444444;
+}
+.appsThemeDark .delete.disabled:hover, .appsThemeDark .delete.disabled:visited:hover, .appsThemeDark .delete[disabled]:hover, .appsThemeDark .delete[disabled]:visited:hover, .appsThemeDark a.delete.disabled:hover, .appsThemeDark a.delete.disabled:visited:hover, .appsThemeDark a.delete[disabled]:hover, .appsThemeDark a.delete[disabled]:visited:hover, .appsThemeDark .deleteSubtle.disabled:hover, .appsThemeDark .deleteSubtle.disabled:visited:hover, .appsThemeDark .deleteSubtle[disabled]:hover, .appsThemeDark .deleteSubtle[disabled]:visited:hover, .appsThemeDark a.deleteSubtle.disabled:hover, .appsThemeDark a.deleteSubtle.disabled:visited:hover, .appsThemeDark a.deleteSubtle[disabled]:hover, .appsThemeDark a.deleteSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+.appsThemeDark .deleteSubtle, .appsThemeDark a.deleteSubtle, .appsThemeDark .deleteSubtle:visited, .appsThemeDark a.deleteSubtle:visited {
+  color: #c9adad;
+  background-color: transparent;
+  border-color: transparent;
+}
+.appsThemeDark .deleteSubtle:active, .appsThemeDark a.deleteSubtle:active, .appsThemeDark .deleteSubtle:visited:active, .appsThemeDark a.deleteSubtle:visited:active {
+  border-color: transparent;
+}
+
+.edit, a.edit, .editSubtle, a.editSubtle {
+  text-decoration: none;
+  -webkit-appearance: none;
+  border: solid 1px #00e000;
+  background-color: #adffad;
+  border-top-color: #c9ffc9;
+  border-left-color: #c9ffc9;
+  color: #009600;
+  padding: 1px 3px 1px 3px;
+  border-radius: 3px;
+}
+.edit:hover, a.edit:hover, .editSubtle:hover, a.editSubtle:hover {
+  background-color: #c9ffc9;
+  color: #004b00;
+  text-decoration: none;
+}
+.edit:active, a.edit:active, .editSubtle:active, a.editSubtle:active {
+  background-color: #d6ffd6;
+  border-color: rgba(119, 255, 119, 0.2);
+}
+.edit.disabled, .edit.disabled:visited, .edit[disabled], .edit[disabled]:visited, a.edit.disabled, a.edit.disabled:visited, a.edit[disabled], a.edit[disabled]:visited, .editSubtle.disabled, .editSubtle.disabled:visited, .editSubtle[disabled], .editSubtle[disabled]:visited, a.editSubtle.disabled, a.editSubtle.disabled:visited, a.editSubtle[disabled], a.editSubtle[disabled]:visited {
+  background-color: #eeeeee;
+  color: #aaaaaa;
+  border: solid 1px #bbbbbb;
+  border-top-color: #eeeeee;
+  border-left-color: #eeeeee;
+}
+.edit.disabled:hover, .edit.disabled:visited:hover, .edit[disabled]:hover, .edit[disabled]:visited:hover, a.edit.disabled:hover, a.edit.disabled:visited:hover, a.edit[disabled]:hover, a.edit[disabled]:visited:hover, .editSubtle.disabled:hover, .editSubtle.disabled:visited:hover, .editSubtle[disabled]:hover, .editSubtle[disabled]:visited:hover, a.editSubtle.disabled:hover, a.editSubtle.disabled:visited:hover, a.editSubtle[disabled]:hover, a.editSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+
+.editSubtle, a.editSubtle, .editSubtle:visited, a.editSubtle:visited {
+  color: #adc9ad;
+  background-color: transparent;
+  border-color: transparent;
+}
+.editSubtle:active, a.editSubtle:active, .editSubtle:visited:active, a.editSubtle:visited:active {
+  border-color: transparent;
+}
+
+.appsThemeDark .edit, .appsThemeDark a.edit, .appsThemeDark .editSubtle, .appsThemeDark a.editSubtle {
+  background-color: #00a800;
+  border: solid 1px #008300;
+  border-top-color: #07ff07;
+  border-left-color: #07ff07;
+  color: #ddffdd;
+}
+.appsThemeDark .edit:hover, .appsThemeDark a.edit:hover, .appsThemeDark .editSubtle:hover, .appsThemeDark a.editSubtle:hover {
+  background-color: #00ce00;
+  color: white;
+  text-decoration: none;
+}
+.appsThemeDark .edit:active, .appsThemeDark a.edit:active, .appsThemeDark .editSubtle:active, .appsThemeDark a.editSubtle:active {
+  background-color: #1aff1a;
+  border-color: #008300;
+  color: white;
+}
+.appsThemeDark .edit.disabled, .appsThemeDark .edit.disabled:visited, .appsThemeDark .edit[disabled], .appsThemeDark .edit[disabled]:visited, .appsThemeDark a.edit.disabled, .appsThemeDark a.edit.disabled:visited, .appsThemeDark a.edit[disabled], .appsThemeDark a.edit[disabled]:visited, .appsThemeDark .editSubtle.disabled, .appsThemeDark .editSubtle.disabled:visited, .appsThemeDark .editSubtle[disabled], .appsThemeDark .editSubtle[disabled]:visited, .appsThemeDark a.editSubtle.disabled, .appsThemeDark a.editSubtle.disabled:visited, .appsThemeDark a.editSubtle[disabled], .appsThemeDark a.editSubtle[disabled]:visited {
+  background-color: #333333;
+  color: #bbbbbb;
+  border: solid 1px #222222;
+  border-top-color: #444444;
+  border-left-color: #444444;
+}
+.appsThemeDark .edit.disabled:hover, .appsThemeDark .edit.disabled:visited:hover, .appsThemeDark .edit[disabled]:hover, .appsThemeDark .edit[disabled]:visited:hover, .appsThemeDark a.edit.disabled:hover, .appsThemeDark a.edit.disabled:visited:hover, .appsThemeDark a.edit[disabled]:hover, .appsThemeDark a.edit[disabled]:visited:hover, .appsThemeDark .editSubtle.disabled:hover, .appsThemeDark .editSubtle.disabled:visited:hover, .appsThemeDark .editSubtle[disabled]:hover, .appsThemeDark .editSubtle[disabled]:visited:hover, .appsThemeDark a.editSubtle.disabled:hover, .appsThemeDark a.editSubtle.disabled:visited:hover, .appsThemeDark a.editSubtle[disabled]:hover, .appsThemeDark a.editSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+.appsThemeDark .editSubtle, .appsThemeDark a.editSubtle, .appsThemeDark .editSubtle:visited, .appsThemeDark a.editSubtle:visited {
+  color: #adc9ad;
+  background-color: transparent;
+  border-color: transparent;
+}
+.appsThemeDark .editSubtle:active, .appsThemeDark a.editSubtle:active, .appsThemeDark .editSubtle:visited:active, .appsThemeDark a.editSubtle:visited:active {
+  border-color: transparent;
+}
+
+.button, a.button, .buttonSubtle, a.buttonSubtle {
+  text-decoration: none;
+  -webkit-appearance: none;
+  border: solid 1px #002d55;
+  background-color: #004B8D;
+  border-top-color: #0068c4;
+  border-left-color: #0068c4;
+  color: #001e38;
+  padding: 1px 3px 1px 3px;
+  border-radius: 3px;
+}
+.button:hover, a.button:hover, .buttonSubtle:hover, a.buttonSubtle:hover {
+  background-color: #005fb2;
+  color: #000f1c;
+  text-decoration: none;
+}
+.button:active, a.button:active, .buttonSubtle:active, a.buttonSubtle:active {
+  background-color: #006ccc;
+  border-color: rgba(0, 75, 141, 0.2);
+}
+.button.disabled, .button.disabled:visited, .button[disabled], .button[disabled]:visited, a.button.disabled, a.button.disabled:visited, a.button[disabled], a.button[disabled]:visited, .buttonSubtle.disabled, .buttonSubtle.disabled:visited, .buttonSubtle[disabled], .buttonSubtle[disabled]:visited, a.buttonSubtle.disabled, a.buttonSubtle.disabled:visited, a.buttonSubtle[disabled], a.buttonSubtle[disabled]:visited {
+  background-color: #eeeeee;
+  color: #aaaaaa;
+  border: solid 1px #bbbbbb;
+  border-top-color: #eeeeee;
+  border-left-color: #eeeeee;
+}
+.button.disabled:hover, .button.disabled:visited:hover, .button[disabled]:hover, .button[disabled]:visited:hover, a.button.disabled:hover, a.button.disabled:visited:hover, a.button[disabled]:hover, a.button[disabled]:visited:hover, .buttonSubtle.disabled:hover, .buttonSubtle.disabled:visited:hover, .buttonSubtle[disabled]:hover, .buttonSubtle[disabled]:visited:hover, a.buttonSubtle.disabled:hover, a.buttonSubtle.disabled:visited:hover, a.buttonSubtle[disabled]:hover, a.buttonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+
+.buttonSubtle, a.buttonSubtle, .buttonSubtle:visited, a.buttonSubtle:visited {
+  color: #384755;
+  background-color: transparent;
+  border-color: transparent;
+}
+.buttonSubtle:active, a.buttonSubtle:active, .buttonSubtle:visited:active, a.buttonSubtle:visited:active {
+  border-color: transparent;
+}
+
+.appsThemeDark .button:hover, .appsThemeDark a.button:hover, .appsThemeDark .buttonSubtle:hover, .appsThemeDark a.buttonSubtle:hover {
+  background-color: #005fb2;
+  color: white;
+  text-decoration: none;
+}
+.appsThemeDark .button:active, .appsThemeDark a.button:active, .appsThemeDark .buttonSubtle:active, .appsThemeDark a.buttonSubtle:active {
+  background-color: #006ccc;
+  border-color: #001a31;
+  color: white;
+}
+.appsThemeDark .button.disabled, .appsThemeDark .button.disabled:visited, .appsThemeDark .button[disabled], .appsThemeDark .button[disabled]:visited, .appsThemeDark a.button.disabled, .appsThemeDark a.button.disabled:visited, .appsThemeDark a.button[disabled], .appsThemeDark a.button[disabled]:visited, .appsThemeDark .buttonSubtle.disabled, .appsThemeDark .buttonSubtle.disabled:visited, .appsThemeDark .buttonSubtle[disabled], .appsThemeDark .buttonSubtle[disabled]:visited, .appsThemeDark a.buttonSubtle.disabled, .appsThemeDark a.buttonSubtle.disabled:visited, .appsThemeDark a.buttonSubtle[disabled], .appsThemeDark a.buttonSubtle[disabled]:visited {
+  background-color: #333333;
+  color: #bbbbbb;
+  border: solid 1px #222222;
+  border-top-color: #444444;
+  border-left-color: #444444;
+}
+.appsThemeDark .button.disabled:hover, .appsThemeDark .button.disabled:visited:hover, .appsThemeDark .button[disabled]:hover, .appsThemeDark .button[disabled]:visited:hover, .appsThemeDark a.button.disabled:hover, .appsThemeDark a.button.disabled:visited:hover, .appsThemeDark a.button[disabled]:hover, .appsThemeDark a.button[disabled]:visited:hover, .appsThemeDark .buttonSubtle.disabled:hover, .appsThemeDark .buttonSubtle.disabled:visited:hover, .appsThemeDark .buttonSubtle[disabled]:hover, .appsThemeDark .buttonSubtle[disabled]:visited:hover, .appsThemeDark a.buttonSubtle.disabled:hover, .appsThemeDark a.buttonSubtle.disabled:visited:hover, .appsThemeDark a.buttonSubtle[disabled]:hover, .appsThemeDark a.buttonSubtle[disabled]:visited:hover {
+  color: #aaaaaa;
+}
+.appsThemeDark .buttonSubtle, .appsThemeDark a.buttonSubtle, .appsThemeDark .buttonSubtle:visited, .appsThemeDark a.buttonSubtle:visited {
+  color: #384755;
+  background-color: transparent;
+  border-color: transparent;
+}
+.appsThemeDark .buttonSubtle:active, .appsThemeDark a.buttonSubtle:active, .appsThemeDark .buttonSubtle:visited:active, .appsThemeDark a.buttonSubtle:visited:active {
+  border-color: transparent;
+}
+
+/* New Standard Buttons for major actions */
+.button, a.button {
+  color: white;
+  font-size: 16px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+  -webkit-appearance: none;
+  padding: 5px;
+  cursor: pointer;
+}
+.button:visited, a.button:visited {
+  color: white;
+}
+
+.button:hover, a.button:hover {
+  color: white;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.7);
+}
+
+.button[disabled], a.button[disabled] {
+  box-shadow: none;
+}
+
+.button[disabled]:hover {
+  text-shadow: none;
+}
+
+/*# sourceMappingURL=apps.css.map */
