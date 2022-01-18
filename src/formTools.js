@@ -55,8 +55,6 @@ datepicker (YYYY-Mmm-DD), or a relative date (eg +1y-1w+1d for plus one year min
 
 ****************************************************************************/
 
-// General functions anyone can use
-// Note: This is not used, I may delete this
 function isLeapYear(year) {
     year = parseInt(year);
     // If a year is multiple of 4 or 400, but not 100, it is a leap year
@@ -65,6 +63,12 @@ function isLeapYear(year) {
     return !(year % 4);
 }
 
+function toMidnight (date) {
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+  date.setMilliseconds(0);  
+}
 
 // returns a time given a string with something resembling a time
 function parseTime(str) {
@@ -152,9 +156,8 @@ function parseTime(str) {
     }
     
     if (typeof second === 'undefined') second = 0;
-    // if (typeof minute === 'undefined') minute = 0;
 
-    return {meridiem, hour, minute, second};
+    return {hour, minute, second};
 }
 
 // If there are any timePickers in the form, this sets those appropriately
@@ -183,6 +186,65 @@ function setTimePickers(id, hour, minute, meridiem) {
     document.getElementById(id+'Minute').dispatchEvent(changeEvent);
 }
 
+/**
+ * Given a relative date word in English, Spanish, or French, return the relevant date.
+ */
+function parseDayWord(str) {
+    if (typeof str !== 'string') return;
+    str = str.trim().toLowerCase();
+
+    const todayWords = 'today|now|hoy|ahora|jour|maitenant'.split('|');
+    const tomorrowWords = 'tomorrow|manana|mañana|demain'.split('|');
+    const yesterdayWords = 'yesterday|ayer|hier'.split('|');
+
+    const date = new Date();
+    toMidnight(date);
+    
+    // If the input string matches one of the date words, we set the date appropriately
+    if ( yesterdayWords.some(word => str.includes(word)) ) {
+        date.setDate(date.getDate() - 1);
+        return date;
+    } else if ( tomorrowWords.some(word => str.includes(word)) ) {
+        date.setDate(date.getDate() + 1);
+        return date;
+    }
+
+    if ( todayWords.some(word => str.includes(word)) ) {
+        return date;
+    }
+}
+
+/**
+ * Given a relative time word in English, Spanish, or French, return the relevant date with time
+ * @param {*} str 
+ * @returns datetime
+ */
+function parseTimeWord(str) {
+  if (typeof str !== 'string') return;
+  str = str.trim().toLowerCase();
+
+  const nowWords = 'now|ahor|maint|à présent|a pr'.split('|');
+  const noonWords = 'noon|mediod|midi'.split('|');
+  const midnightWords = 'midnight|medianoche|minuit'.split('|');
+
+  const date = new Date();
+
+  // If the input string matches one of the date words, we set the date appropriately
+  if ( midnightWords.some(word => str.includes(word)) ) {
+    console.log(date)
+      toMidnight(date);
+      console.log(date)
+      return date;
+  } else if ( noonWords.some(word => str.includes(word)) ) {
+      toMidnight(date);
+      date.setHours(12);
+      return date;
+  }
+
+  if ( nowWords.some(word => str.includes(word)) ) return date;  
+  
+}
+
 
 /**
  * Accepts a string that is some kind of date and outputs it as the specified format String.
@@ -190,59 +252,28 @@ function setTimePickers(id, hour, minute, meridiem) {
  * 
  * Takes date parts delimited by slashes, spaces, or commas and converts them into discrete tokens
  * and guesses what each token must be: eg: token1-token2-token3
- * 
- *  if (parseInt(token)) > 31) year = token
- *  (isNaN(token)) month = token
- *  if (parseInt(token)) > 12) day = token
- *  if (!token3) year = now().toYear
- *  if (token < 31) token === (day || month)
- *      if (token.length == 1) token === day
- *      if unsure about any, we assume YY-MM-DD
- *      if (token 1 === month) token 2 === day
- *
 */
-function dateSanitize(str, formatStr = 'YYYY-MMM-DD', id) {
-    let invalidMsg = 'Invalid Date';
-
-    // You can customize these relative date words to add languages
-    const todayWords = ['today', 'now', 'hoy', 'ahora', 'jour', 'maitenant'];
-    const tomorrowWords = ['tomorrow', 'manana', 'mañana', 'demain'];
-    const yesterdayWords = ['yesterday', 'ayer', 'hier'];
-
-    // Note: in JS months are zero-based - Jan is 0, Dec is 11
-    // Set today's date (at midnight) for reference
-    const date = new Date();
-    date.setHours(0);
-    date.setMinutes(0);
-    date.setSeconds(0);
-    date.setMilliseconds(0);
-
-    let year, month0, day, meridiem, hour, minute, second;
+function parseDate(str) {
+    let year, month0, day, hour, minute, second;
 
     str = str.trim().toLowerCase();
 
-    // If the input string matches one of the date words, we set the date appropriately
-    if ( yesterdayWords.some(word => str.includes(word)) ) {
-        date.setDate(date.getDate() - 1);
-    } else if ( tomorrowWords.some(word => str.includes(word)) ) {
-        date.setDate(date.getDate() + 1);
-    }
+    // Check for relative day words and return if there's a match.
+    const dateFromWord = parseDayWord(str);
+    if ( typeof dateFromWord === 'object' ) return dateFromWord;
+    // Return error if the string is too small to be a meaningful date.
+    else if (str.length < 5) return;
 
-    if ( [...todayWords, ...tomorrowWords, ...yesterdayWords].some(word => str.includes(word)) ) {
-        return date;
-    } else if (str.length < 5) {
-        return invalidMsg;
-    }
-    
-    // If there's a time run parseTime and remove the time from the string
+    // If there's a time, run parseTime and remove the time from the string
     const timeRE = new RegExp(/\d{1,2}\:\d\d(?:\:\d\ds?)?\s?(?:[a|p]m?)?/ig);
+    
     if (timeRE.test(str)) {
-        ({meridiem, hour, minute, second} = parseTime(str));
+        ({hour, minute, second} = parseTime(str));
         str = str.replace(timeRE, '').trim();
     }
 
     // tokenMeanings helps guess the date format when there's ambiguity.
-    const tokenMeanings = [null,null,null];
+    const tokenMeanings = [null,null,null]; 
 
     // Handle a undelimited 6 or 8-digit number and treat it as YYYYMMDD
     if (str.length === 8) str = str.replace(/(\d\d\d\d)(\d\d)(\d\d)/, '$1-$2-$3');
@@ -251,13 +282,13 @@ function dateSanitize(str, formatStr = 'YYYY-MMM-DD', id) {
     // If there are only two tokens, we must be missing a year, so prepend the current year to the beginning
     // of the tokens array
     if (str.split(/[^\dA-Za-zé]+/).length < 3) {
-        year = date.getFullYear();
+        year = new Date().getFullYear();
         str = year+' '+str;
         tokenMeanings[0] = 'y';
     }
 
     // Split up tokens by any non-alpha or non-numeric characters (spaces, slashes, dots, etc.)
-    const tokens = str.split(/[^\dA-Za-zé]+/);
+    const tokens = str.split(/[^\dA-Za-zé']+/);
 
     // Check for fields whose meanings must be obvious because they can't be anything else
     tokens.forEach((token, i) => {
@@ -274,8 +305,8 @@ function dateSanitize(str, formatStr = 'YYYY-MMM-DD', id) {
                 year = tokenInt;
                 tokenMeanings[i] = 'y'; 
             }
-            // Numbers over 31 are probably a year, so convert it to a 4-digit year
-            else if (typeof year === 'undefined' && tokenInt > 31) {
+            // Numbers preceeded by apostrophe or over 31 are years
+            else if ( typeof year === 'undefined' && (tokenInt > 31 || /^'\d\d/.test(token)) ) {
                 year = yearToFull(token);
                 tokenMeanings[i] = 'y';
             }
@@ -289,7 +320,6 @@ function dateSanitize(str, formatStr = 'YYYY-MMM-DD', id) {
     });
 
     // If we what one token is, we can guess others by assuming a common format
-
     // First token is year. Assume YYYY/M/D
     if (tokenMeanings[0] === 'y' && tokenMeanings[1] === null && tokenMeanings[2] === null) {
         month0 = parseInt(tokens[1]) - 1;
@@ -338,41 +368,76 @@ function dateSanitize(str, formatStr = 'YYYY-MMM-DD', id) {
         }
     }
 
-    if (typeof month0 === 'undefined' || typeof day === 'undefined') {
-        return invalidMsg;
-    }
+    // If we still don't have a complete date, return invalid
+    if (typeof month0 === 'undefined' || typeof day === 'undefined') return;
 
     if (typeof hour === 'undefined') hour = 0;
     if (typeof minute === 'undefined') minute = 0;
     if (typeof second === 'undefined') second = 0;
 
-    // First set to the 12 hour time, then set to the 24 hour time, in case it only goes to 12.
-    // These will probably be removed
-    //if (id !== null && typeof hour !== 'undefined') setTimePickers(id, hour, minute, meridiem);
-
-    // Just return normal Date object. I'll offload formatting to something else.
     return new Date(year, month0, day, hour, minute, second);
 
-} //end dateSanitize()
+} //end parseDate()
 
 
+// Modified version of format() from Day.js, uses same format as Moment.js
+function dateTimeFormat(date, formatStr) {
+  if (!date instanceof Date) throw 'dateTimeFormat requires a date object as argument 1';
+  const str = formatStr || 'YYYY-MMM-DD HH:mm:ss';
 
-// TODO: Make a format function
+  const d = {};
+  d.y = date.getFullYear();
+  d.M = date.getMonth();
+  d.D = date.getDate();
+  d.W = date.getDay();
+  d.H = date.getHours();
+  d.m = date.getMinutes();
+  d.s = date.getSeconds();
+  d.ms = date.getMilliseconds();
 
+  const getH = () => d.H % 12 || 12;
+
+  const getMeridiem = ((hour, minute, isLowercase) => {
+    const m = (hour < 12 ? 'AM' : 'PM');
+    return isLowercase ? m.toLowerCase() : m;
+  });
+
+  const matches = {
+    YY: String(d.y).slice(-2),
+    YYYY: d.y,
+    M: d.M + 1,
+    MM: pad(d.M + 1),
+    MMMM: monthToString(d.M),
+    MMM: monthToString(d.M, true),
+    D: String(d.D),
+    DD: pad(d.D),
+    d: String(d.W),
+    dd: dayToString(d.W, 2),
+    ddd: dayToString(d.W, 3),
+    dddd: dayToString(d.W),
+    H: String(d.H),
+    HH: pad(d.H),
+    h: getH(),
+    hh: pad(getH()),
+    a: getMeridiem(d.H, d.m, true),
+    A: getMeridiem(d.H, d.m, false),
+    m: String(d.m),
+    mm: pad(d.m),
+    s: String(d.s),
+    ss: pad(d.s),
+    SSS: pad(d.ms, 3),
+  }
+
+  const formatRE = new RegExp(/\[([^\]]+)]|Y{1,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g);
+  return str.replace(formatRE, (match, $1) => $1 || matches[match]);
+}
 
 
 /* timeSanitize is based on dateSanitize, but only includes the time formatting code, ignoring any date parts.
 Additionally, the meridiem is optional so that a single one or two digit number is just interpreted as an hour.
 */
-function timeSanitize(str, formatStr, id) {
-    var invalidMsg = "Invalid Time";
-
-    // Splits up all numeric or alpha components into an array with no delimiters of any kind
-    var hour = "";
-    var minute = "";
-    var second = "";
-    var meridiem = "";
-    var originalStr = str;
+function timeSanitize(str) {
+    let hour, minute, second, meridiem;
 
     // Remove spaces from beginning and end
     str = str.trim();
@@ -597,8 +662,14 @@ function determineDate(date, defaultDate ) {
 }
 
 // Converts a two-digit year to a four digit year using the specified threshold of where we stop caring about the 1900s
-function yearToFull(year, threshold = 60) {
-    year = parseInt(year);
+function yearToFull(year, threshold) {
+    if (typeof threshold === 'undefined') {
+        // We assume dates up to 80 years in the past or up to 20 years in the future by default
+        threshold = new Date().getFullYear() - 1990;
+    }
+    // Clean up quotes or other non-numeric symbols
+    if (typeof year === 'string') year = parseInt(year.replace(/[^\d]+/, ''));
+
     if (year < threshold) return year += 2000;
     else if (year < 100) return year += 1900;
     return year;
@@ -606,26 +677,13 @@ function yearToFull(year, threshold = 60) {
 
 // Converts an integer or combination of letters into a full month name. Use true for second paramter to get 3 letter month.
 function monthToString(str, short, oneBased = false, toInt = false) {
-    // Normalize to zero-baesd months
-    if (oneBased && !isNaN(parseInt(str))) str = parseInt(str) - 1;
+    // Normalize to zero-based months
+    if (oneBased && !isNaN(str)) str = parseInt(str) - 1;
 
     let month;
-    const months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',        
-    ];
+    const months = 'January|February|March|April|May|June|July|August|September|October|November|December'.split('|');
 
-    if (isNaN(parseInt(str))) {
+    if (isNaN(str)) {
         // Fe and Se to prevent confusing with Friday and Saturday/Sunday
         if (/^(ja|en).*/i.test(str)) month = 0;
         if (/^(fe|fé).*/i.test(str)) month = 1;
@@ -657,9 +715,38 @@ function monthToInt(str, oneBased = false) {
     return monthToString(str, false, oneBased, true);
 }
 
+// Converts an integer or combination of letters into a full weekday name. Use true for second paramter to get 3 letter month.
+function dayToString(str, length = 0, oneBased = false, toInt = false) {
+    // Normalize to zero-based days of week
+    if (oneBased && !isNaN(str)) str = parseInt(str) - 1;
 
-// Zero pad number
-function pad(n, width, z) {
+    let day;
+    const days = 'Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday'.split('|');
+
+    if (isNaN(str)) {  
+        if (/su.*/i.test(str)) day = 0;
+        if (/^m.*/i.test(str)) day = 1;
+        if (/tu.*/i.test(str)) day = 2;
+        if (/^w.*/i.test(str)) day = 3;
+        if (/th.*/i.test(str)) day = 4;
+        if (/^f.*/i.test(str)) day = 5;
+        if (/sa.*/i.test(str)) day = 6;
+    } else {
+        day = parseInt(str);
+    }
+
+    if (day < 7) {
+        if (toInt) return oneBased ? day + 1 : day;
+        return length ? days[day].slice(0, length) : days[day] ;
+    }
+
+    // By default, return null if no matches were found
+    return null;
+}
+
+
+// Zero pad number (default 2 characters)
+function pad(n, width = 2, z) {
   z = z || '0';
   n = n + '';
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
@@ -711,7 +798,6 @@ function isDateValid(el) {
                 $(el).after('<div id="ftDateError'+elid+'" class="error ftError ftDateError">Date must be a weekday.</div>');
             }
         }
-
 
         // $(el).trigger('change');
         return true;
