@@ -51,29 +51,29 @@ then run formToolsValidate() after your own validation.
 Datepicker options:
 use data-minDate and data-maxDate attributes to specify min a max dates for a datepicker field.
 You may specify an integer number of days from the current day, (0 is today), a date in the format used by the
-datepicker (YYYY-Mmm-DD), or a relative date (eg +1y-1w+1d for plus one year minus one week, plus 1 day). 
+datepicker (YYYY-Mmm-DD), or a relative date (eg +1y-1w+1d for plus one year minus one week, plus 1 day).
 
 ****************************************************************************/
 
 // General functions anyone can use
 
 function isLeapYear(year) {
-	// If a year is multiple of 400,  
-	// then it is a leap year  
-	if (year % 400 == 0)  
-		return true;  
+	// If a year is multiple of 400,
+	// then it is a leap year
+	if (year % 400 == 0)
+		return true;
 
-	// Else If a year is multiple of 100,  
-	// then it is not a leap year  
-	if (year % 100 == 0)  
-		return false;  
+	// Else If a year is multiple of 100,
+	// then it is not a leap year
+	if (year % 100 == 0)
+		return false;
 
-	// Else If a year is multiple of 4,  
-	// then it is a leap year  
-	if (year % 4 == 0)  
-		return true;  
-	
-	return false; 
+	// Else If a year is multiple of 4,
+	// then it is a leap year
+	if (year % 4 == 0)
+		return true;
+
+	return false;
 }
 
 
@@ -86,7 +86,7 @@ function isLeapYear(year) {
 	- Under 31 is likely a day
 	- if there is a day of week ONLY we could get the nearest day of week that matches...
 		- Bah, this is silly. Just strip out any days of week or don't even entertain this
-	
+
 	AMBIGUITY
 		If there's ambiguity we assume The first is year, mid is month, last is day
 		- A single digit will be interpreted as day even if at beginning of string
@@ -245,7 +245,7 @@ function dateSanitize(str, formatStr, id) {
 	if (year.length == 0 && /,\s?(\d\d\d?)/.test(str)) {
 		year = str.match(/,\s?(\d\d\d?)/)[1];
 		//Remove matching token
-		tokens.splice(tokens.indexOf(year), 1); 
+		tokens.splice(tokens.indexOf(year), 1);
 		// Make it a four digit year
 		if (parseInt(year) < 100) {
 			if (parseInt(year) < 60)
@@ -332,7 +332,7 @@ function dateSanitize(str, formatStr, id) {
 			tokens.splice(0,1);
 
 			if (parseInt(year) < 60) year = parseInt(year)+2000;
-			else year = parseInt(year)+1900;			
+			else year = parseInt(year)+1900;
 		} else {
 			if (month.length && day.length)
 			// If there's still no year, I could assume it's the current year, although that might be dumb.
@@ -448,7 +448,7 @@ function timeSanitize(str, formatStr, id) {
 	// Handle a few specific strings. Even include spanish for Victor
 	if (str.toLowerCase() == "ahora" || str.toLowerCase() == "ahorita" || str.toLowerCase() == "now") str = moment().format("h:mm AA");
 	else if (str.toLowerCase() == "noon" || str.toLowerCase() == "mediodía" || str.toLowerCase() == "mediodia") str = "12:00 PM";
-	else if (str.toLowerCase() == "midnight" || str.toLowerCase() == "medianoche") str = "12:00 AM";	
+	else if (str.toLowerCase() == "midnight" || str.toLowerCase() == "medianoche") str = "12:00 AM";
 
 	// Require that the string starts with a numeral
 	var digitRe = /^\d+.*/;
@@ -793,7 +793,7 @@ function isTimeValid(el) {
 		$(el).val(valClean);
 		// $(el).trigger('change');
 		return true;
-	}	
+	}
 }
 
 function isCardValid(el) {
@@ -804,7 +804,7 @@ function isCardValid(el) {
 	if ( cardRegex.test($(el).val()) == false ) {
 		$(el).after('<div id="ftCardError'+elid+'" class="error ftError ftCardError">Invalid EPL card number.</div>');
 		return false;
-	} else return true;	
+	} else return true;
 }
 
 function showError(el) {
@@ -818,7 +818,7 @@ function showError(el) {
 	}
 
 	if ($('#bigError').length == 0) {
-		$('[type="submit"').parent().after('<label>\
+		$('[type="submit"]').parent().after('<label>\
 				<div class="noticeBox hidden" id="bigError">\
 					There is a problem with your submission.\
 				</div>\
@@ -838,7 +838,7 @@ function isEmailValid(el) {
 	var emailRegex=new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 	if ( emailRegex.test($(el).val()) == false ) {
 		$(el).after('<div id="ftEmailError'+elid+'" class="error ftError ftEmailError">Invalid email address.</div>');
-		return false;	
+		return false;
 	} else return true;
 }
 
@@ -856,7 +856,7 @@ function isPhoneValid(el) {
 	var phoneRE = new RegExp(/^\d\d\d-\d\d\d-\d\d\d\d$/);
 	if (phoneRE.test($(el).val()) == false) {
 		$(el).after('<div id="ftPhoneError'+elid+'" class="error ftError ftPhoneError">Invalid phone number.</div>');
-		return false;	
+		return false;
 	} else return true;
 }
 
@@ -872,7 +872,7 @@ function isDecimalValid(el) {
 
 function isPostalValid(el) {
 	var elid = $(el).attr('id');
-	$('#ftPostalError'+elid).remove();	
+	$('#ftPostalError'+elid).remove();
 	var postalRegex=new RegExp(/^[abceghjklmnprstvxyABCEGHJKLMNPRSTVXY][0-9][abceghjklmnprstvwxyzABCEGHJKLMNPRSTVWXYZ] ?[0-9][abceghjklmnprstvwxyzABCEGHJKLMNPRSTVWXYZ][0-9]$/);
 	// homogenize postal code format
 	// uppercase letters
@@ -960,7 +960,7 @@ function formToolsValidate(debug) {
 			valid = false;
 			if (debug) console.log('invalid: '+$(this).attr('id'));
 		}
-	});	
+	});
 	$('.formTools .eplcard, .appForm .eplcard').each(function(i){
 		if ($(this).val().length > 0 && isCardValid(this) == false) {
 			valid = false;
@@ -969,7 +969,7 @@ function formToolsValidate(debug) {
 	});
 
 
-	return valid;	
+	return valid;
 }//end formToolsValidate()
 
 // This function can be used to refresh form validation listeners if content is reloaded via AJAX
@@ -1070,7 +1070,7 @@ function applyValidation() {
 
 		//Remove any periods after the first one
 		if (this.value.search(/.*\..*\./) != -1);
-			this.value=this.value.replace(/(.*\..*)(\.)/, "$1");	
+			this.value=this.value.replace(/(.*\..*)(\.)/, "$1");
 	});
 
 
